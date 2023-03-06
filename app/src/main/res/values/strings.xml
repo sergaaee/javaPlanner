@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Planner</string>
+    <string name="button_sign">Sign in</string>
+    <string name="welcome_message">Welcome to the Planner!</string>
+    <string name="login">Username</string>
+    <string name="password">Password</string>
+    <string name="button_sign_up">Sign up now</string>
+    <string name="email">E-mail</string>
+    <string name="reg_form">Registration form:</string>
+    <string name="back">Back</string>
+</resources>
