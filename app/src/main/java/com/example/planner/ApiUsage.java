@@ -26,7 +26,12 @@ public class ApiUsage {
         builder.addHeader("accept", "application/json");
         // if no body
         if (bodyColumns[0].equals("")) {
-            builder.method(method, new FormBody.Builder().build());
+            if (method.equals("GET")){
+                builder.get();
+            }
+            else {
+                builder.method(method, new FormBody.Builder().build());
+            }
         } // body exists
         else {
             JSONObject jsonBody = new JSONObject();
@@ -79,10 +84,10 @@ public class ApiUsage {
     }
 
     @NonNull
-    protected static String getMethod(String path, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    protected static String getMethod(String path, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {
 
-        return methodBuilder(path, "GET", bodyColumns, bodyData, headersColumns, headersData);
+        return methodBuilder(path, "GET", new String[]{""}, new String[]{""}, headersColumns, headersData);
 
     }
 

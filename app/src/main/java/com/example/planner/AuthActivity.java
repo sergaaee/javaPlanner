@@ -39,7 +39,6 @@ public class AuthActivity extends AppCompatActivity {
         fingerprint = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         if (refreshToken.equals("null")) {setContentView(R.layout.activity_auth);}
-
         else {
 
             LogIn.refreshAccessToken(sharedPref);
