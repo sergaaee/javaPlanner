@@ -40,8 +40,6 @@ public class LogIn {
             editor.putString("access_token", accessToken);
             editor.apply();
         }
-
-
     }
 
 

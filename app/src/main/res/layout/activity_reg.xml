@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegActivity">
 
 
     <EditText
@@ -18,7 +18,8 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/regPass"
@@ -32,7 +33,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/regLogin"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/regEmail"
@@ -45,7 +48,8 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/regPass"
-        app:layout_constraintTop_toBottomOf="@+id/regPass2" />
+        app:layout_constraintTop_toBottomOf="@+id/regPass2"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textViewReg"
@@ -53,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
         android:text="@string/reg_form"
+        android:textColor="#0277BD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,5 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regPass" />
+        app:layout_constraintTop_toBottomOf="@+id/regPass"
+        android:autofillHints=""
+        tools:ignore="Deprecated" />
 </androidx.constraintlayout.widget.ConstraintLayout>

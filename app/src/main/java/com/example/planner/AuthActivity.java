@@ -2,6 +2,7 @@ package com.example.planner;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,11 +11,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity {
 
     private final Context context = this;
     private static String fingerprint = "null";
@@ -38,17 +38,14 @@ public class MainActivity extends AppCompatActivity {
         refreshToken = sharedPref.getString("refresh_token", "null");
         fingerprint = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        if (refreshToken.equals("null")){
-
-            setContentView(R.layout.activity_auth);
-
-        }
+        if (refreshToken.equals("null")) {setContentView(R.layout.activity_auth);}
 
         else {
 
-
             LogIn.refreshAccessToken(sharedPref);
-            setContentView(R.layout.activity_auth); // Has to be activity_main_page
+            Intent intent = new Intent(AuthActivity.this,
+                    MainPageActivity.class);
+            startActivity(intent); // Has to be activity_main_page
 
         }
 
@@ -68,41 +65,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void signUpView(View view) {
 
-        setContentView(R.layout.activity_registration);
-
-    }
-
-    public void signUp(View view) throws Exception {
-
-        EditText loginReg = findViewById(R.id.regLogin);
-        String login = loginReg.getText().toString();
-        EditText passwordReg = findViewById(R.id.regPass);
-        String password = passwordReg.getText().toString();
-        EditText emailReg = findViewById(R.id.regEmail);
-        String email = emailReg.getText().toString();
-        EditText passwordField2 = findViewById(R.id.regPass2);
-        String password2 = passwordField2.getText().toString();
-        if (login.equals("") || password.equals("") || !password.equals(password2)){
-            Toast errorToast = Toast.makeText(MainActivity.this, "Error: bad login or passwords aren't match.", Toast.LENGTH_LONG);
-            errorToast.show();
-        }
-        User user = new User(login, password, email);
-        if (user.postNewUser().equals("422")){
-
-            Toast errorToast = Toast.makeText(MainActivity.this, "Error: that username or e-mail already registered!", Toast.LENGTH_LONG);
-            errorToast.show();
-
-        }
-        else {
-            Toast successToast = Toast.makeText(MainActivity.this, "Successfully registered!", Toast.LENGTH_LONG);
-            setContentView(R.layout.activity_auth);
-            successToast.show();
-        }
+        Intent intent = new Intent(AuthActivity.this,
+                RegActivity.class);
+        startActivity(intent);
 
 
     }
 
-    public void backToLogIn(View view) {setContentView(R.layout.activity_auth);}
+
 
 
 

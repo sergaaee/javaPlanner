@@ -18,8 +18,8 @@ public class Session extends ApiUsage{
 
     String username = "";
     String password = "";
-    String refresh_token = MainActivity.getRefreshToken();;
-    String fingerprint = MainActivity.getFingerprint();;
+    String refresh_token = AuthActivity.getRefreshToken();;
+    String fingerprint = AuthActivity.getFingerprint();;
     public Session(String username, String password) {
         this.username = username;
         this.password = password;
@@ -28,8 +28,6 @@ public class Session extends ApiUsage{
     public Session(){
 
     }
-
-
 
 
     @NonNull
