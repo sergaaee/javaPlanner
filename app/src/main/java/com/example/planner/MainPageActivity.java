@@ -20,9 +20,6 @@ public class MainPageActivity extends AppCompatActivity {
 
     private TextView welcomeField;
     private TextView soonestTaskField;
-    private String welcomeText;
-    private String noTasks;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +53,14 @@ public class MainPageActivity extends AppCompatActivity {
         welcomeField.setText(getString(R.string.welcome_back) + " " + username);
         JSONArray tasks = response.getJSONArray(1);
         if (tasks.length() > 0) {
-            for (int i = 0; i < tasks.length(); i++) {
-                System.out.println(tasks.getJSONObject(i).getString("name"));
-            }
-        } else {
-            soonestTaskField.setText(getString(R.string.no_tasks));
+            JSONObject soonestTask = tasks.getJSONObject(0);
+            soonestTaskField.setText(getString(R.string.soonest_task) + "\n" +
+                    getString(R.string.task_name) + " " + soonestTask.getString("name") + "\n" +
+                    getString(R.string.start_time) + " " + soonestTask.getString("start_time") + "\n" +
+                    getString(R.string.end_time) + " " + soonestTask.getString("end_time") + "\n" +
+                    getString(R.string.task_desc) + " " + soonestTask.getString("description")
+                    );
         }
-
     }
 
 }

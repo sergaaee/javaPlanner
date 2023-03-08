@@ -60,6 +60,9 @@ public class AuthActivity extends AppCompatActivity {
         String password = passwordField.getText().toString();
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         LogIn.newSession(username, password, passwordField, view, sharedPref);
+        Intent intent = new Intent(AuthActivity.this,
+                MainPageActivity.class);
+        startActivity(intent);
 
     }
 

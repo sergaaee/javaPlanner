@@ -10,5 +10,10 @@
     <string name="back">Back</string>
     <string name="welcome_back">Welcome back,</string>
     <string name="no_tasks">You still don\'t have any tasks. Want to create a new one ?</string>
-    <string name="new_task">Create</string>
+    <string name="soonest_task">Your soonest task is:</string>
+    <string name="task_name">Name:</string>
+    <string name="start_time">Starts at:</string>
+    <string name="end_time">Ends at:</string>
+    <string name="task_desc">Description:</string>
+    <string name="new_task">Create new task</string>
 </resources>
