@@ -38,7 +38,7 @@ public class AuthActivity extends AppCompatActivity {
         refreshToken = sharedPref.getString("refresh_token", "null");
         fingerprint = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        if (refreshToken.equals("")) {setContentView(R.layout.activity_auth);}
+        if (refreshToken.equals("null")) {setContentView(R.layout.activity_auth);}
         else {
 
             LogIn.updateAccessToken(sharedPref);
@@ -53,6 +53,7 @@ public class AuthActivity extends AppCompatActivity {
 
 
     public void signIn(View view){
+
         EditText loginField = findViewById(R.id.loginField);
         EditText passwordField = findViewById(R.id.passField);
         String username = loginField.getText().toString();
