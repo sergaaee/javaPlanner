@@ -16,4 +16,5 @@
     <string name="end_time">Ends at:</string>
     <string name="task_desc">Description:</string>
     <string name="new_task">Create new task</string>
+    <string name="creating_task">Enter parameters for new task</string>
 </resources>

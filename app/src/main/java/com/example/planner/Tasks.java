@@ -5,18 +5,17 @@ import androidx.annotation.NonNull;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class Tasks extends ApiUsage {
 
     @NonNull
-    public static String taskNew(String token, String name, LocalDateTime stime, LocalDateTime etime, String desc){
+    public static String taskNew(String token, String name, String stime, String etime, String desc){
 
         String check = "";
         try {
             check = postMethod("tasks",
                     new String[]{"name", "start_time", "end_time", "description"},
-                    new String[]{name, String.valueOf(stime), String.valueOf(etime), desc},
+                    new String[]{name, stime, etime, desc},
                     new String[]{"Authorization"},
                     new String[]{"Bearer " + token});
             if (check.equals("401")){ return "401"; }
