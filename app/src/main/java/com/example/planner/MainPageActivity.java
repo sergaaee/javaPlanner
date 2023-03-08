@@ -1,8 +1,10 @@
 package com.example.planner;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -73,4 +75,9 @@ public class MainPageActivity extends AppCompatActivity {
         }
     }
 
+    public void newTask(View view) {
+        Intent intent = new Intent(MainPageActivity.this,
+                TaskCreatingActivity.class);
+        startActivity(intent);
+    }
 }
