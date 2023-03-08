@@ -38,10 +38,10 @@ public class AuthActivity extends AppCompatActivity {
         refreshToken = sharedPref.getString("refresh_token", "null");
         fingerprint = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        if (refreshToken.equals("null")) {setContentView(R.layout.activity_auth);}
+        if (refreshToken.equals("")) {setContentView(R.layout.activity_auth);}
         else {
 
-            LogIn.refreshAccessToken(sharedPref);
+            LogIn.updateAccessToken(sharedPref);
             Intent intent = new Intent(AuthActivity.this,
                     MainPageActivity.class);
             startActivity(intent); // Has to be activity_main_page

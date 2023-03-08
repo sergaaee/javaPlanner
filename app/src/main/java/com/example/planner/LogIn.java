@@ -9,13 +9,15 @@ import androidx.annotation.NonNull;
 
 public class LogIn {
 
-    public static void newSession(String username, String password, EditText passwordField, View view, SharedPreferences sharedPref){
+    @NonNull
+    public static String newSession(String username, String password, EditText passwordField, View view, SharedPreferences sharedPref){
         Session session = new Session(username, password);
         String response = session.createNewSession();
         if ("401".equals(response)) {
             Toast errorToast = Toast.makeText(view.getContext(), "Incorrect username or password", Toast.LENGTH_LONG);
             errorToast.show();
             passwordField.setText("");
+            return "Error";
         } else {
             String[] tokens = response.split("\"");
             String accessToken = tokens[3].strip();
@@ -25,10 +27,11 @@ public class LogIn {
             editor.apply();
             editor.putString("access_token", accessToken);
             editor.apply();
+            return "Success";
         }
     }
 
-    public static void refreshAccessToken(@NonNull SharedPreferences sharedPref){
+    public static void updateAccessToken(@NonNull SharedPreferences sharedPref){
         SharedPreferences.Editor editor = sharedPref.edit();
         String response = new Session().refreshAccessToken();
         if ("401".equals(response)) {
