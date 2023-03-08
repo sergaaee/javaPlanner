@@ -15,6 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class MainPageActivity extends AppCompatActivity {
 
@@ -36,7 +39,6 @@ public class MainPageActivity extends AppCompatActivity {
                     new String[]{"Bearer " + token});
             welcomeField = findViewById(R.id.textWelcomeBack);
             soonestTaskField = findViewById(R.id.textSoonestTask);
-            //welcomeText = findViewById(R.string.welcome_back).getContext().
             parseJSONResponse(new JSONArray(Response));
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
@@ -54,11 +56,19 @@ public class MainPageActivity extends AppCompatActivity {
         JSONArray tasks = response.getJSONArray(1);
         if (tasks.length() > 0) {
             JSONObject soonestTask = tasks.getJSONObject(0);
+            String taskName = soonestTask.getString("name");
+            String taskSTime  = LocalDate.parse(soonestTask.getString("start_time").split("T")[0]).
+                    format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
+                    soonestTask.getString("start_time").split("T")[1].split("\\.")[0];
+            String taskEtime = LocalDate.parse(soonestTask.getString("end_time").split("T")[0]).
+                    format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
+                    soonestTask.getString("end_time").split("T")[1].split("\\.")[0];
+            String taskDesc = soonestTask.getString("description");
             soonestTaskField.setText(getString(R.string.soonest_task) + "\n" +
-                    getString(R.string.task_name) + " " + soonestTask.getString("name") + "\n" +
-                    getString(R.string.start_time) + " " + soonestTask.getString("start_time") + "\n" +
-                    getString(R.string.end_time) + " " + soonestTask.getString("end_time") + "\n" +
-                    getString(R.string.task_desc) + " " + soonestTask.getString("description")
+                    getString(R.string.task_name) + " " + taskName + "\n" +
+                    getString(R.string.start_time) + " " + taskSTime + "\n" +
+                    getString(R.string.end_time) + " " + taskEtime + "\n" +
+                    getString(R.string.task_desc) + " " + taskDesc
                     );
         }
     }

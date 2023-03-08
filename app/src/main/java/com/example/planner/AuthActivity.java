@@ -69,7 +69,7 @@ public class AuthActivity extends AppCompatActivity {
     public void signUpView(View view) {
 
         Intent intent = new Intent(AuthActivity.this,
-                RegActivity.class);
+                MainPageActivity.class);
         startActivity(intent);
 
 
