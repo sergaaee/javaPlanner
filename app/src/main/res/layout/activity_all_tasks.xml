@@ -17,15 +17,17 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollViewAllTasks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="VisualLintBounds" />
 
     <ScrollView
         android:id="@+id/scrollViewAllTasks"
-        android:layout_width="0dp"
-        android:layout_height="692dp"
+        android:layout_width="386dp"
+        android:layout_height="659dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
+        android:contentDescription="@string/all_tasks"
         android:tooltipText="@string/all_tasks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,12 +39,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/your_tasks"
-                android:translationX="167dp" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/your_tasks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

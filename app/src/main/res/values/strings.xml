@@ -19,4 +19,5 @@
     <string name="creating_task">Enter parameters for new task</string>
     <string name="all_tasks">To all my tasks</string>
     <string name="your_tasks">Your tasks:</string>
+    <string name="log_out">Log out</string>
 </resources>

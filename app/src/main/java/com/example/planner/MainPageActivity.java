@@ -1,6 +1,8 @@
 package com.example.planner;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -86,6 +88,22 @@ public class MainPageActivity extends AppCompatActivity {
         Intent intent = new Intent(MainPageActivity.this,
                 AllTasksActivity.class);
         startActivity(intent);
+    }
+
+    public void logOut(View view){
+        new AlertDialog.Builder(this)
+                .setTitle("Logging out")
+                .setMessage("Do you really want to exit?\nAfter that you'll be have to login again.")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        AuthActivity.getSharedPref().edit().putString("refresh_token", "null").apply();
+                        Intent intent = new Intent(MainPageActivity.this,
+                                AuthActivity.class);
+                        startActivity(intent);
+                    }})
+                .setNegativeButton(android.R.string.cancel, null).show();
     }
 
 }

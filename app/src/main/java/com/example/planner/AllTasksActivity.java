@@ -29,13 +29,11 @@ public class AllTasksActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_all_tasks);
-        LinearLayout layout = findViewById(R.id.linearLayoutTasks);
-        View view = viewBuilding();
+        viewBuilding();
     }
 
     @Nullable
-    private View viewBuilding(){
-        View view = null;
+    private void viewBuilding(){
         LinearLayout layout = findViewById(R.id.linearLayoutTasks);
         try {
             String Response = ApiUsage.getMethod("tasks",
@@ -67,9 +65,6 @@ public class AllTasksActivity extends AppCompatActivity {
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }
-
-        return view;
-
     }
 
 
