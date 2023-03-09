@@ -120,11 +120,17 @@ public class TaskCreatingActivity extends AppCompatActivity {
         String eTime = dateTimeE + "T" + hourE + ":" + minutesE;
         SharedPreferences mPrefs = getSharedPreferences("AuthActivity", MODE_PRIVATE);
         String token = mPrefs.getString("access_token", "None");
-        Tasks.taskNew(token, nameTask, sTime, eTime, descTask);
-        Intent intent = new Intent(TaskCreatingActivity.this,
-                MainPageActivity.class);
-        startActivity(intent);
-        Toast successToast = Toast.makeText(TaskCreatingActivity.this, "Successfully added!", Toast.LENGTH_LONG);
-        successToast.show();
+        String response = Tasks.taskNew(token, nameTask, sTime, eTime, descTask);
+        if (response.equals("Success")) {
+            Intent intent = new Intent(TaskCreatingActivity.this,
+                    MainPageActivity.class);
+            startActivity(intent);
+            Toast successToast = Toast.makeText(TaskCreatingActivity.this, "Successfully added!", Toast.LENGTH_LONG);
+            successToast.show();
+        }
+        else {
+            Toast errorToast = Toast.makeText(TaskCreatingActivity.this, "Task with this name already exists!", Toast.LENGTH_LONG);
+            errorToast.show();
+        }
     }
 }

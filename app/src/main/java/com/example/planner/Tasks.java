@@ -20,6 +20,7 @@ public class Tasks extends ApiUsage {
                     new String[]{""},
                     new String[]{""});
             if (check.equals("401")){ return "401"; }
+            if (check.equals("409")){ return "409"; }
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }

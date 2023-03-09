@@ -67,7 +67,7 @@ public class MainPageActivity extends AppCompatActivity {
                     format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
                     soonestTask.getString("end_time").split("T")[1].split("\\.")[0];
             String taskDesc = soonestTask.getString("description");
-            soonestTaskField.setText(getString(R.string.soonest_task) + "\n" +
+            soonestTaskField.setText(getString(R.string.soonest_task) + "\n\n" +
                     getString(R.string.task_name) + " " + taskName + "\n" +
                     getString(R.string.start_time) + " " + taskSTime + "\n" +
                     getString(R.string.end_time) + " " + taskEtime + "\n" +
@@ -81,4 +81,11 @@ public class MainPageActivity extends AppCompatActivity {
                 TaskCreatingActivity.class);
         startActivity(intent);
     }
+
+    public void allTasks(View view){
+        Intent intent = new Intent(MainPageActivity.this,
+                AllTasksActivity.class);
+        startActivity(intent);
+    }
+
 }
