@@ -19,6 +19,7 @@ public class User extends ApiUsage{
             throws Exception {
 
         return postMethod("users",
+                "",
                 new String[]{"username", "password", "email"},
                 new String[]{username, password, email},
                 new String[]{""},

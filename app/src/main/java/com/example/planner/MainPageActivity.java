@@ -2,7 +2,6 @@ package com.example.planner;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -33,15 +32,17 @@ public class MainPageActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_page);
-        SharedPreferences mPrefs = getSharedPreferences("AuthActivity", MODE_PRIVATE);
-        String token = mPrefs.getString("access_token", "None");
+        String token = AuthActivity.getAccessToken();
         try {
             String Response = ApiUsage.getMethod("users",
-                    new String[]{"Authorization"},
-                    new String[]{"Bearer " + token});
-            welcomeField = findViewById(R.id.textWelcomeBack);
-            soonestTaskField = findViewById(R.id.textSoonestTask);
-            parseJSONResponse(new JSONArray(Response));
+                    token,
+                    new String[]{""},
+                    new String[]{""});
+            if (!Response.equals("401")) {
+                welcomeField = findViewById(R.id.textWelcomeBack);
+                soonestTaskField = findViewById(R.id.textSoonestTask);
+                parseJSONResponse(new JSONArray(Response));
+            }
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }

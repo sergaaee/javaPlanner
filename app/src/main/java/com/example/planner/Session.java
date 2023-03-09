@@ -4,8 +4,6 @@ package com.example.planner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -18,15 +16,14 @@ public class Session extends ApiUsage{
 
     String username = "";
     String password = "";
-    String refresh_token = AuthActivity.getRefreshToken();;
-    String fingerprint = AuthActivity.getFingerprint();;
+    String refresh_token = AuthActivity.getRefreshToken();
+    String fingerprint = AuthActivity.getFingerprint();
     public Session(String username, String password) {
         this.username = username;
         this.password = password;
     }
     //for refresh token
     public Session(){
-
     }
 
 
@@ -52,15 +49,23 @@ public class Session extends ApiUsage{
 
 
     @Nullable
-    public String refreshAccessToken(){
-        try {
-            return postMethod("tokens/refresh",
-                    new String[]{""},
-                    new String[]{""},
-                    new String[]{"fingerprint", "refresh-token"},
-                    new String[]{fingerprint, refresh_token});
-        } catch (JSONException | IOException e) {
-            return "401";
+    public String refreshAccessToken() throws IOException {
+        if (refresh_token.equals("null")){
+            return "Error";
         }
+        Request request = new Request.Builder()
+                .url(DEFAULT_URL + "tokens/refresh")
+                .addHeader("Accept", "application/json")
+                .addHeader("fingerprint", fingerprint)
+                .addHeader("refresh-token", refresh_token)
+                .post(new FormBody.Builder().build())
+                .build();
+        Response response = client.newCall(request).execute();
+        if (response.code() != 200) {
+            if (response.code() == 401 || response.code() == 422) {
+                return "Error";
+            }
+        }
+        return response.body().string();
     }
 }

@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.io.IOException;
+
 public class LogIn {
 
     @NonNull
@@ -31,18 +33,22 @@ public class LogIn {
         }
     }
 
-    public static void updateAccessToken(@NonNull SharedPreferences sharedPref){
-        SharedPreferences.Editor editor = sharedPref.edit();
+    @NonNull
+    public static String updateAccessToken() throws IOException {
+        SharedPreferences.Editor editor = AuthActivity.getSharedPref().edit();
         String response = new Session().refreshAccessToken();
-        if ("401".equals(response)) {
-            editor.putString("access_token", "");
-            editor.putString("refresh_token", "");
+        if ("Error".equals(response)) {
+            editor.putString("access_token", "null");
+            editor.putString("refresh_token", "null");
             editor.apply();
+            return "Error";
         } else {
-            String accessToken = response.split("\"")[3].strip();
+            String accessToken = response.split("\"")[3];
             editor.putString("access_token", accessToken);
             editor.apply();
+            return accessToken;
         }
+
     }
 
 

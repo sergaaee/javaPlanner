@@ -14,10 +14,11 @@ public class Tasks extends ApiUsage {
         String check = "";
         try {
             check = postMethod("tasks",
+                    token,
                     new String[]{"name", "start_time", "end_time", "description"},
                     new String[]{name, stime, etime, desc},
-                    new String[]{"Authorization"},
-                    new String[]{"Bearer " + token});
+                    new String[]{""},
+                    new String[]{""});
             if (check.equals("401")){ return "401"; }
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
@@ -31,10 +32,11 @@ public class Tasks extends ApiUsage {
         String check = "";
         try {
             check = postMethod("tasks",
+                    token,
                     new String[]{"name"},
                     new String[]{name},
-                    new String[]{"Authorization"},
-                    new String[]{"Bearer " + token});
+                    new String[]{""},
+                    new String[]{""});
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }

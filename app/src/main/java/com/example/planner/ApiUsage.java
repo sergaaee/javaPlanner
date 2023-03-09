@@ -18,7 +18,7 @@ public class ApiUsage {
     final static OkHttpClient client = new OkHttpClient();
     final static String DEFAULT_URL = "http://10.0.2.2:8000/";
 
-    private static String methodBuilder(String path, String method, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    private static String methodBuilder(String path, String method, String token, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {
 
         Request.Builder builder = new Request.Builder();
@@ -43,22 +43,21 @@ public class ApiUsage {
             );
             builder.method(method, requestJsonBody);
         }
+        if (token.length() > 1){
+            builder.addHeader("Authorization", "Bearer " + token);
+        }
         // headers exist
         if (!headersColumns[0].equals(""))
             for (int i = 0; i < headersColumns.length; i++)
                 builder.addHeader(headersColumns[i], headersData[i]);
+        builder.addHeader("check", "check");
         // building request
         Request request = builder
                 .build();
         Response response = client.newCall(request).execute();
         if (response.code() != 200) {
             if (response.code() == 401) {
-                String check = new Session().refreshAccessToken();
-                if (!check.equals("401")) {
-                    methodBuilder(method, path, bodyColumns, bodyData, headersColumns, headersData);
-                } else {
-                    return String.valueOf(response.code());
-                }
+                return "401";
             }
             return String.valueOf(response.code());
         }
@@ -68,34 +67,61 @@ public class ApiUsage {
     }
 
     @NonNull
-    protected static String postMethod(String path, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    protected static String postMethod(String path, String token, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {
 
-        return methodBuilder(path, "POST", bodyColumns, bodyData, headersColumns, headersData);
+        String response = methodBuilder(path, "POST", token, bodyColumns, bodyData, headersColumns, headersData);
+        if (response.equals("401")){
+            token = LogIn.updateAccessToken();
+            if (!token.equals("Error")){
+                return methodBuilder(path, "POST", token, bodyColumns, bodyData, headersColumns, headersData);
+            }
+        }
+        return response;
 
     }
 
     @NonNull
-    protected static String patchMethod(String path, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    protected static String patchMethod(String path, String token, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {
 
-        return methodBuilder(path, "PATCH", bodyColumns, bodyData, headersColumns, headersData);
+        String response = methodBuilder(path, "PATCH", token, bodyColumns, bodyData, headersColumns, headersData);
+        if (response.equals("401")){
+            token = LogIn.updateAccessToken();
+            if (!token.equals("Error")){
+                return methodBuilder(path, "PATCH", token, bodyColumns, bodyData, headersColumns, headersData);
+            }
+        }
+        return response;
 
     }
 
     @NonNull
-    protected static String getMethod(String path, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    protected static String getMethod(String path, String token, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {
 
-        return methodBuilder(path, "GET", new String[]{""}, new String[]{""}, headersColumns, headersData);
-
+        String response = methodBuilder(path, "GET", token, new String[]{""}, new String[]{""}, headersColumns, headersData);
+        if (response.equals("401")){
+            token = LogIn.updateAccessToken();
+            if (!token.equals("Error")){
+                return methodBuilder(path, "GET", token, new String[]{""}, new String[]{""}, headersColumns, headersData);
+            }
+        }
+        return response;
     }
 
     @NonNull
-    protected static String delMethod(String path, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    protected static String delMethod(String path, String token, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
     throws JSONException, IOException, AssertionError {
 
-        return methodBuilder(path, "DELETE", bodyColumns, bodyData, headersColumns, headersData);
+        String response = methodBuilder(path, "DELETE", token, bodyColumns, bodyData, headersColumns, headersData);
+        if (response.equals("401")){
+            token = LogIn.updateAccessToken();
+            if (!token.equals("Error")){
+                return methodBuilder(path, "DELETE", token, bodyColumns, bodyData, headersColumns, headersData);
+            }
+        }
+        return response;
 
     }
 }
