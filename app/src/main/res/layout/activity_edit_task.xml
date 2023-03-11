@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditTaskActivity">
+
+    <EditText
+        android:id="@+id/editTextNewTaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/task_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNewTaskSTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/start_time"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:onClick="setNewSTimeData"
+        android:focusable="false"
+        app:layout_constraintStart_toStartOf="@+id/editTextNewTaskName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskName" />
+
+    <EditText
+        android:id="@+id/editTextNewTaskETime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/end_time"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:focusable="false"
+        android:onClick="setNewETimeData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskSTime" />
+
+    <EditText
+        android:id="@+id/editTextNewTaskDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/task_desc"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskETime" />
+
+    <TextView
+        android:id="@+id/textViewNewParameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/new_parameters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonConfirmEditTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/confirm"
+        android:onClick="updateTask"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDeleteTask"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDeleteTask" />
+
+    <Button
+        android:id="@+id/buttonBackToAllTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/back"
+        android:onClick="backToAllTasks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDeleteTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:text="@string/delete_task"
+        android:onClick="delTask"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

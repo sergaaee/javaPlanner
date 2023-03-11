@@ -20,4 +20,14 @@
     <string name="all_tasks">To all my tasks</string>
     <string name="your_tasks">Your tasks:</string>
     <string name="log_out">Log out</string>
+    <string name="title_log_out">Logging out</string>
+    <string name="exit_confirmation">Do you really want to exit?\nAfter that you\'ll be have to login again.</string>
+    <string name="new_parameters">Enter new parameters:</string>
+    <string name="confirm">confirm</string>
+    <string name="delete_task">Delete task</string>
+    <string name="delete_confirmation">Are you sure?\nThat action can\'t be undone.</string>
+    <string name="name_already_exists">Task with this name already exists!</string>
+    <string name="successfully_edited">Successfully edited!</string>
+    <string name="successfully_added">"Successfully added!"</string>
+    <string name="went_wrong">Whoops, something went wrong…</string>
 </resources>

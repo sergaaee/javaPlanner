@@ -20,8 +20,8 @@ import java.util.Calendar;
 public class TaskCreatingActivity extends AppCompatActivity {
 
     private int year, month, day, hour, minutes, yearE, monthE, dayE, hourE, minutesE;
-    String dateTime = "";
-    String dateTimeE = "";
+    private String dateTime = "";
+    private String dateTimeE = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,11 +125,11 @@ public class TaskCreatingActivity extends AppCompatActivity {
             Intent intent = new Intent(TaskCreatingActivity.this,
                     MainPageActivity.class);
             startActivity(intent);
-            Toast successToast = Toast.makeText(TaskCreatingActivity.this, "Successfully added!", Toast.LENGTH_LONG);
+            Toast successToast = Toast.makeText(TaskCreatingActivity.this, getString(R.string.successfully_added), Toast.LENGTH_LONG);
             successToast.show();
         }
         else {
-            Toast errorToast = Toast.makeText(TaskCreatingActivity.this, "Task with this name already exists!", Toast.LENGTH_LONG);
+            Toast errorToast = Toast.makeText(TaskCreatingActivity.this, getString(R.string.name_already_exists), Toast.LENGTH_LONG);
             errorToast.show();
         }
     }

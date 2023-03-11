@@ -92,8 +92,8 @@ public class MainPageActivity extends AppCompatActivity {
 
     public void logOut(View view){
         new AlertDialog.Builder(this)
-                .setTitle("Logging out")
-                .setMessage("Do you really want to exit?\nAfter that you'll be have to login again.")
+                .setTitle(getString(R.string.title_log_out))
+                .setMessage(getString(R.string.exit_confirmation))
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
