@@ -14,10 +14,9 @@
         android:layout_marginStart="4dp"
         android:onClick="backToMainPageFromTasks"
         android:text="@string/back"
-        app:layout_constraintBottom_toTopOf="@+id/scrollViewAllTasks"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="VisualLintBounds" />
 
     <ScrollView
