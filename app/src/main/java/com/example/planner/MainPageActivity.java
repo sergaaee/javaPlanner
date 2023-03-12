@@ -1,8 +1,6 @@
 package com.example.planner;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +24,8 @@ public class MainPageActivity extends AppCompatActivity {
 
     private TextView welcomeField;
     private TextView soonestTaskField;
+    private String username, email,regDate;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,10 @@ public class MainPageActivity extends AppCompatActivity {
     private void parseJSONResponse(@NonNull JSONArray response) throws JSONException {
 
         JSONObject userData = response.getJSONObject(0);
-        String username = userData.getString("username");
+        username = userData.getString("username");
+        email = userData.getString("email");
+        userId = userData.getInt("id");
+        regDate = userData.getString("reg_date");
         welcomeField.setText(getString(R.string.welcome_back) + " " + username);
         JSONArray tasks = response.getJSONArray(1);
         if (tasks.length() > 0) {
@@ -84,26 +87,21 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void toProfile(View view){
+        Intent intent = new Intent(MainPageActivity.this,
+                UserProfileActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("userId", userId);
+        intent.putExtra("email", email);
+        intent.putExtra("regDate", regDate);
+        startActivity(intent);
+    }
+
     public void allTasks(View view){
         Intent intent = new Intent(MainPageActivity.this,
                 AllTasksActivity.class);
         startActivity(intent);
     }
 
-    public void logOut(View view){
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.title_log_out))
-                .setMessage(getString(R.string.exit_confirmation))
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        AuthActivity.getSharedPref().edit().putString("refresh_token", "null").apply();
-                        Intent intent = new Intent(MainPageActivity.this,
-                                AuthActivity.class);
-                        startActivity(intent);
-                    }})
-                .setNegativeButton(android.R.string.cancel, null).show();
-    }
 
 }

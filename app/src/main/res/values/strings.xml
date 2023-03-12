@@ -2,10 +2,10 @@
     <string name="app_name">Planner</string>
     <string name="button_sign">Sign in</string>
     <string name="welcome_message">Welcome to the Planner!</string>
-    <string name="login">Username</string>
+    <string name="username">Username:</string>
     <string name="password">Password</string>
     <string name="button_sign_up">Sign up now</string>
-    <string name="email">E-mail</string>
+    <string name="email">E-mail:</string>
     <string name="reg_form">Registration form:</string>
     <string name="back">Back</string>
     <string name="welcome_back">Welcome back,</string>
@@ -30,4 +30,9 @@
     <string name="successfully_edited">Successfully edited!</string>
     <string name="successfully_added">"Successfully added!"</string>
     <string name="went_wrong">Whoops, something went wrong…</string>
+    <string name="to_profile">To my profile</string>
+    <string name="your_data">Your profile:</string>
+    <string name="id">Id:</string>
+    <string name="reg_date">Registration date:</string>
+    <string name="edit_profile">Edit profile</string>
 </resources>
