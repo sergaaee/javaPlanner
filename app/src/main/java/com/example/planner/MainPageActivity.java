@@ -1,10 +1,14 @@
 package com.example.planner;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -31,7 +35,6 @@ public class MainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_page);
         String token = AuthActivity.getAccessToken();
@@ -50,6 +53,13 @@ public class MainPageActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.main_page_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @SuppressLint("SetTextI18n")
@@ -103,5 +113,36 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void allTasksMenu(MenuItem menuItem){
+        Intent intent = new Intent(MainPageActivity.this,
+                AllTasksActivity.class);
+        startActivity(intent);
+    }
+
+    public void toProfileMenu(MenuItem menuItem){
+        Intent intent = new Intent(MainPageActivity.this,
+                UserProfileActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("userId", userId);
+        intent.putExtra("email", email);
+        intent.putExtra("regDate", regDate);
+        startActivity(intent);
+    }
+
+    public void logOutMenu(MenuItem menuItem){
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.title_log_out))
+                .setMessage(getString(R.string.exit_confirmation))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        AuthActivity.getSharedPref().edit().putString("refresh_token", "null").apply();
+                        Intent intent = new Intent(MainPageActivity.this,
+                                AuthActivity.class);
+                        startActivity(intent);
+                    }})
+                .setNegativeButton(android.R.string.cancel, null).show();
+    }
 
 }
