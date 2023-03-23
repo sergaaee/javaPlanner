@@ -1,8 +1,10 @@
-package com.example.planner;
+package com.example.planner.api;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.planner.activities.AuthActivity;
 
 import java.io.IOException;
 
@@ -16,7 +18,7 @@ public class Session extends ApiUsage{
 
     String username = "";
     String password = "";
-    String refresh_token = AuthActivity.getRefreshToken();
+    String refresh_token = AuthActivity.getSharedPref().getString("refresh_token", "null");
     String fingerprint = AuthActivity.getFingerprint();
     public Session(String username, String password) {
         this.username = username;

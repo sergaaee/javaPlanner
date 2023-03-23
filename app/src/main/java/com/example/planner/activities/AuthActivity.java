@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.planner.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,8 +11,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.R;
+import com.example.planner.api.LogIn;
+import com.example.planner.services.SoonestTaskService;
 
 import java.io.IOException;
 
@@ -21,24 +26,13 @@ public class AuthActivity extends AppCompatActivity {
     private static SharedPreferences sharedPref;
     private final Context context = this;
     private static String fingerprint = "null";
-    private static String refreshToken = "null";
-    public static String getFingerprint(){ return fingerprint; }
 
-    public static String getRefreshToken(){
-        return refreshToken = sharedPref.getString("refresh_token", "null");
-    }
+    public static String getFingerprint(){ return fingerprint; }
 
     public static SharedPreferences getSharedPref(){
         return sharedPref;
     }
 
-    public static String getAccessToken(){
-        return sharedPref.getString("access_token", "null");
-    }
-
-    public static void setAccessToken(String token){
-        sharedPref.edit().putString("access_token", token).apply();
-    }
 
 
     @SuppressLint("HardwareIds")
@@ -50,31 +44,30 @@ public class AuthActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        refreshToken = sharedPref.getString("refresh_token", "null");
+        String refreshToken = sharedPref.getString("refresh_token", "null");
         fingerprint = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         if (refreshToken.equals("null")) {setContentView(R.layout.activity_auth);}
         else {
-
             try {
                 String response = LogIn.updateAccessToken();
-                Intent intent;// Has to be activity_main_page
-                if (response.equals("Error")){
-                    intent = new Intent(AuthActivity.this,
-                            AuthActivity.class);
-                }
-                else {
-                    intent = new Intent(AuthActivity.this,
+                if (!response.equals("Error")){
+                    Intent intent = new Intent(AuthActivity.this,
                             MainPageActivity.class);
+                    startActivity(intent);
                 }
-                startActivity(intent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
+        startForegroundService(new Intent(this, SoonestTaskService.class));
+
 
     }
+
+
+
 
 
     public void signIn(View view){
@@ -84,10 +77,17 @@ public class AuthActivity extends AppCompatActivity {
         String username = loginField.getText().toString();
         String password = passwordField.getText().toString();
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        LogIn.newSession(username, password, passwordField, view, sharedPref);
-        Intent intent = new Intent(AuthActivity.this,
-                MainPageActivity.class);
-        startActivity(intent);
+        String response = LogIn.newSession(username, password, sharedPref);
+        if (response.equals("Success")){
+            Intent intent = new Intent(AuthActivity.this,
+                    MainPageActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast errorToast = Toast.makeText(view.getContext(), getString(R.string.incorrect_UoP), Toast.LENGTH_LONG);
+            errorToast.show();
+            passwordField.setText("");
+        }
 
     }
 

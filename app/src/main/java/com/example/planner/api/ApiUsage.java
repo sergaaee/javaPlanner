@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.planner.api;
 
 import androidx.annotation.NonNull;
 
@@ -97,7 +97,7 @@ public class ApiUsage {
     }
 
     @NonNull
-    protected static String getMethod(String path, String token, @NonNull String[] headersColumns, @NonNull String[] headersData)
+    public static String getMethod(String path, String token, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {
 
         String response = methodBuilder(path, "GET", token, new String[]{""}, new String[]{""}, headersColumns, headersData);

@@ -1,7 +1,6 @@
-package com.example.planner;
+package com.example.planner.activities;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -57,14 +58,13 @@ public class UserProfileActivity extends AppCompatActivity {
                 .setTitle(getString(R.string.title_log_out))
                 .setMessage(getString(R.string.exit_confirmation))
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        AuthActivity.getSharedPref().edit().putString("refresh_token", "null").apply();
-                        Intent intent = new Intent(UserProfileActivity.this,
-                                AuthActivity.class);
-                        startActivity(intent);
-                    }})
+                .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
+                    getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).edit().putString("refresh_token", "null").apply();
+                    getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).edit().putString("access_token", "null").apply();
+                    Intent intent = new Intent(UserProfileActivity.this,
+                            AuthActivity.class);
+                    startActivity(intent);
+                })
                 .setNegativeButton(android.R.string.cancel, null).show();
     }
 

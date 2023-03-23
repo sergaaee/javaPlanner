@@ -1,24 +1,20 @@
-package com.example.planner;
+package com.example.planner.api;
 
 import android.content.SharedPreferences;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+import com.example.planner.activities.AuthActivity;
 
 import java.io.IOException;
 
 public class LogIn {
 
     @NonNull
-    public static String newSession(String username, String password, EditText passwordField, View view, SharedPreferences sharedPref){
+    public static String newSession(String username, String password, SharedPreferences sharedPref){
         Session session = new Session(username, password);
         String response = session.createNewSession();
-        if ("401".equals(response)) {
-            Toast errorToast = Toast.makeText(view.getContext(), "Incorrect username or password", Toast.LENGTH_LONG);
-            errorToast.show();
-            passwordField.setText("");
+        if ("401".equals(response) || "422".equals(response)) {
             return "Error";
         } else {
             String[] tokens = response.split("\"");

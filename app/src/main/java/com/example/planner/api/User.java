@@ -1,8 +1,8 @@
-package com.example.planner;
+package com.example.planner.api;
 
 import androidx.annotation.NonNull;
 
-public class User extends ApiUsage{
+public class User extends ApiUsage {
 
     private final String username;
     private final String password;

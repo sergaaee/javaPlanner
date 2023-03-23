@@ -1,4 +1,7 @@
-package com.example.planner;
+package com.example.planner.activities;
+
+import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +10,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.R;
+import com.example.planner.api.User;
 
 public class RegActivity extends AppCompatActivity {
 
@@ -33,23 +38,24 @@ public class RegActivity extends AppCompatActivity {
         String email = emailReg.getText().toString();
         EditText passwordField2 = findViewById(R.id.regPass2);
         String password2 = passwordField2.getText().toString();
-        if (login.equals("") || password.equals("") || !password.equals(password2)){
-            Toast errorToast = Toast.makeText(RegActivity.this, "Username already registered or passwords aren't match.", Toast.LENGTH_LONG);
-            errorToast.show();
+        if (login.length() == 0){
+            makeText(RegActivity.this, getString(R.string.invalid_username), LENGTH_LONG).show();
         }
-        User user = new User(login, password, email);
-        if (user.postNewUser().equals("422")){
-
-            Toast errorToast = Toast.makeText(RegActivity.this, "Error: that username or e-mail already registered!", Toast.LENGTH_LONG);
-            errorToast.show();
-
+        else if (password.length() == 0) {
+            makeText(RegActivity.this, getString(R.string.invalid_password), LENGTH_LONG).show();
+        }
+        else if (!password.equals(password2)) {
+            makeText(RegActivity.this, getString(R.string.password_rnt_match), LENGTH_LONG).show();
         }
         else {
-            Toast successToast = Toast.makeText(RegActivity.this, "Successfully registered!", Toast.LENGTH_LONG);
-            setContentView(R.layout.activity_auth);
-            successToast.show();
+            String response =  new User(login, password, email).postNewUser();
+            if (response.equals("422"))
+                makeText(RegActivity.this, getString(R.string.already_registered), LENGTH_LONG).show();
+            else {
+                makeText(RegActivity.this, getString(R.string.success_reg), LENGTH_LONG).show();
+                setContentView(R.layout.activity_auth);
+            }
         }
-
 
     }
 

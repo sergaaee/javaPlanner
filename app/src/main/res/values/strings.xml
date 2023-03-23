@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Planner</string>
+    <string name="app_name">PlanIt. Share&amp;do</string>
     <string name="button_sign">Sign in</string>
     <string name="welcome_message">Welcome to the Planner!</string>
     <string name="username">Username:</string>
@@ -35,4 +35,10 @@
     <string name="id">Id:</string>
     <string name="reg_date">Registration date:</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="incorrect_UoP">Incorrect username or password</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="password_rnt_match">Passwords aren\'t match</string>
+    <string name="already_registered">Error: that username or e-mail already registered!</string>
+    <string name="success_reg">Successfully registered!</string>
 </resources>

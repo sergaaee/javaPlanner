@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.planner.api;
 
 import androidx.annotation.NonNull;
 

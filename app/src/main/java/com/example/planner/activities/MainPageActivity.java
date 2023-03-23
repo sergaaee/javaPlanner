@@ -1,9 +1,10 @@
-package com.example.planner;
+package com.example.planner.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.api.ApiUsage;
+import com.example.planner.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +41,7 @@ public class MainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_page);
-        String token = AuthActivity.getAccessToken();
+        String token = getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null");
         try {
             String Response = ApiUsage.getMethod("users",
                     token,
@@ -51,7 +55,6 @@ public class MainPageActivity extends AppCompatActivity {
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -88,6 +91,9 @@ public class MainPageActivity extends AppCompatActivity {
                     getString(R.string.end_time) + " " + taskEtime + "\n" +
                     getString(R.string.task_desc) + " " + taskDesc
                     );
+            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            sharedPref.edit().putString("name", taskName).apply();
+            sharedPref.edit().putString("time", soonestTask.getString("start_time")).apply();
         }
     }
 
@@ -134,14 +140,13 @@ public class MainPageActivity extends AppCompatActivity {
                 .setTitle(getString(R.string.title_log_out))
                 .setMessage(getString(R.string.exit_confirmation))
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        AuthActivity.getSharedPref().edit().putString("refresh_token", "null").apply();
-                        Intent intent = new Intent(MainPageActivity.this,
-                                AuthActivity.class);
-                        startActivity(intent);
-                    }})
+                .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
+                    getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).edit().putString("refresh_token", "null").apply();
+                    getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).edit().putString("access_token", "null").apply();
+                    Intent intent = new Intent(MainPageActivity.this,
+                            AuthActivity.class);
+                    startActivity(intent);
+                })
                 .setNegativeButton(android.R.string.cancel, null).show();
     }
 

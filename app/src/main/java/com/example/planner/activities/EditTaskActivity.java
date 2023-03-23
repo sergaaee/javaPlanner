@@ -1,10 +1,9 @@
-package com.example.planner;
+package com.example.planner.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.R;
+import com.example.planner.api.Tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -113,7 +115,6 @@ public class EditTaskActivity extends AppCompatActivity {
         // Launch Time Picker Dialog
         @SuppressLint("SetTextI18n") TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
-
                     hourE = hourOfDay;
                     minutesE = minute;
                     EditText eTimeField = findViewById(R.id.editTextNewTaskETime);
@@ -141,38 +142,36 @@ public class EditTaskActivity extends AppCompatActivity {
             newETime = LocalDateTime.parse(newETime, dateFormat).toString();
         } catch (DateTimeParseException ignored){}
 
-        String response = Tasks.taskUpdate(AuthActivity.getAccessToken(), prev_name, newName, newSTime, newETime, newDesc);
+        String response = Tasks.taskUpdate(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), prev_name, newName, newSTime, newETime, newDesc);
 
         if (response.equals("Success")){
-            Toast successToast = Toast.makeText(EditTaskActivity.this, getString(R.string.successfully_edited), Toast.LENGTH_LONG);
-            successToast.show();
+            Toast.makeText(EditTaskActivity.this, getString(R.string.successfully_edited), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(EditTaskActivity.this,
                     AllTasksActivity.class);
             startActivity(intent);
         }
 
         else {
-            Toast errorToast = Toast.makeText(EditTaskActivity.this, getString(R.string.went_wrong), Toast.LENGTH_LONG);
-            errorToast.show();
+            Toast.makeText(EditTaskActivity.this, getString(R.string.went_wrong), Toast.LENGTH_LONG).show();
         }
 
     }
 
 
     public void delTask(View view){
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.delete_task))
-                .setMessage(getString(R.string.delete_confirmation))
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Tasks.taskDel(AuthActivity.getAccessToken(), prev_name);
-                        Intent intent = new Intent(EditTaskActivity.this,
-                                AllTasksActivity.class);
-                        startActivity(intent);
-                    }})
-                .setNegativeButton(android.R.string.cancel, null).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.delete_task));
+        builder.setMessage(getString(R.string.delete_confirmation));
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
+            Tasks.taskDel(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"),
+                    prev_name);
+            Intent intent = new Intent(EditTaskActivity.this,
+                    AllTasksActivity.class);
+            startActivity(intent);
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.show();
     }
 
 

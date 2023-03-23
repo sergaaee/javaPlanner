@@ -1,7 +1,8 @@
-package com.example.planner;
+package com.example.planner.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.api.ApiUsage;
+import com.example.planner.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +41,7 @@ public class AllTasksActivity extends AppCompatActivity {
         LinearLayout layout = findViewById(R.id.linearLayoutTasks);
         try {
             String Response = ApiUsage.getMethod("tasks",
-                    AuthActivity.getAccessToken(),
+                    getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"),
                     new String[]{""},
                     new String[]{""});
             if (!Response.equals("401")) {
@@ -59,7 +63,7 @@ public class AllTasksActivity extends AppCompatActivity {
                         layout1.addView(taskETime);
                         layout1.addView(taskDesc);
                         layout1.setOnClickListener(v -> {
-
+                            // need it for build next activity
                             Intent intent = new Intent(AllTasksActivity.this,
                                     EditTaskActivity.class);
                             intent.putExtra("name", task[0]);
@@ -97,6 +101,9 @@ public class AllTasksActivity extends AppCompatActivity {
                         task.getString("end_time").split("T")[1].split("\\.")[0];
                 String taskDesc = task.getString("description");
                 result[i] = new String[]{taskName, taskSTime, taskEtime, taskDesc};
+                SharedPreferences sharedPref = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
+                sharedPref.edit().putString("name", taskName).apply();
+                sharedPref.edit().putString("time", task.getString("start_time")).apply();
             }
         }
         else {

@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.planner.activities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.planner.R;
+import com.example.planner.api.Tasks;
 
 import java.util.Calendar;
 

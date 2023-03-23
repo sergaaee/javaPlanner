@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:tooltipText="@string/all_tasks"
-    tools:context=".AllTasksActivity">
+    tools:context=".activities.AllTasksActivity">
 
     <Button
         android:id="@+id/buttonBackToMainPage"
