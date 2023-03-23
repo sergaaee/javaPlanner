@@ -23,12 +23,11 @@ public class SoonestTaskService extends Service {
         View view = null;
         SharedPreferences preferences = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
         createNotificationChannel();
-        onTaskRemoved(intent);
         if (LocalDateTime.now().toString().split("\\.")[0].equals(preferences.getString("time", null))){
             createNotification(view);
             SystemClock.sleep(1000);
         }
-
+        onTaskRemoved(intent);
         return Service.START_STICKY;
     }
 
