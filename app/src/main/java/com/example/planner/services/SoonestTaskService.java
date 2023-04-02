@@ -9,7 +9,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.view.View;
 
-import com.example.planner.NotificationTaskTime;
+import com.example.planner.receivers.NotificationTaskTime;
 
 import java.time.LocalDateTime;
 

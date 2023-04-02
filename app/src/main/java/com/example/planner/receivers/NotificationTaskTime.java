@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.planner.receivers;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -12,7 +12,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.planner.activities.AllTasksActivity;
+import com.example.planner.R;
+import com.example.planner.activities.AuthActivity;
 
 public class NotificationTaskTime extends BroadcastReceiver {
 
@@ -31,18 +32,19 @@ public class NotificationTaskTime extends BroadcastReceiver {
 
     private void sendNotification(Context context) {
 
-        Intent resultIntent = new Intent(context, AllTasksActivity.class);
+        Intent resultIntent = new Intent(context, AuthActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent,
                 PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel 1")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Task starts")
                 .setContentText(String.format("Your task %s starts now!", name))
+                .setContentIntent(resultPendingIntent)
+                .addAction(R.drawable.ic_launcher_background, "Open", resultPendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .setContentIntent(resultPendingIntent);
+                .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        // notificationId is a unique int for each notification that you must define
+        // ALREADY HANDLED IN TASK_CREATING_ACTIVITY
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
 
             // TODO: Consider calling

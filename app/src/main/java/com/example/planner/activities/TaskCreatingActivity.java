@@ -1,10 +1,13 @@
 package com.example.planner.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -13,7 +16,9 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.planner.R;
 import com.example.planner.api.Tasks;
@@ -34,6 +39,43 @@ public class TaskCreatingActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_task_creating);
+        if (ActivityCompat.checkSelfPermission(TaskCreatingActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT > 32) {
+                if (!shouldShowRequestPermissionRationale("112")){
+                    getNotificationPermission();
+                }
+            }
+        }
+
+
+    }
+
+    public void getNotificationPermission(){
+        try {
+            if (Build.VERSION.SDK_INT > 32) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        112);
+            }
+        }catch (Exception ignored){
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 112) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(TaskCreatingActivity.this, "Success", Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(TaskCreatingActivity.this, "You can enable notifications in app's settings.", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     public void backToMainPage(View view) {

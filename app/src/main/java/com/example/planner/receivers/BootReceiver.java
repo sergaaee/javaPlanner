@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.planner.receivers;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;

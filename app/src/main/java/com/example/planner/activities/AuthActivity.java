@@ -60,8 +60,8 @@ public class AuthActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
-        startForegroundService(new Intent(this, SoonestTaskService.class));
 
+        startForegroundService(new Intent(this, SoonestTaskService.class));
 
     }
 
