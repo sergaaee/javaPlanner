@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -133,6 +134,8 @@ public class EditTaskActivity extends AppCompatActivity {
         String newETime = eTimeEdit.getText().toString();
         EditText descEdit = findViewById(R.id.editTextNewTaskDesc);
         String newDesc = descEdit.getText().toString();
+        Spinner status = findViewById(R.id.spinnerStatusEdit);
+        String newStatus = status.getSelectedItem().toString();
         try {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm:ss", Locale.US);
             newSTime = LocalDateTime.parse(newSTime, dateFormat).toString();
@@ -142,7 +145,7 @@ public class EditTaskActivity extends AppCompatActivity {
             newETime = LocalDateTime.parse(newETime, dateFormat).toString();
         } catch (DateTimeParseException ignored){}
 
-        String response = Tasks.taskUpdate(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), prev_name, newName, newSTime, newETime, newDesc);
+        String response = Tasks.taskUpdate(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), prev_name, newName, newSTime, newETime, newDesc, newStatus);
 
         if (response.equals("Success")){
             Toast.makeText(EditTaskActivity.this, getString(R.string.successfully_edited), Toast.LENGTH_LONG).show();

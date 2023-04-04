@@ -2,6 +2,7 @@ package com.example.planner.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.os.StrictMode;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.planner.R;
 import com.example.planner.api.Tasks;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class TaskCreatingActivity extends AppCompatActivity {
@@ -47,6 +51,9 @@ public class TaskCreatingActivity extends AppCompatActivity {
             }
         }
 
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
     }
 
@@ -163,9 +170,11 @@ public class TaskCreatingActivity extends AppCompatActivity {
         String descTask = desc.getText().toString();
         String sTime = dateTime + "T" + hour + ":" + minutes;
         String eTime = dateTimeE + "T" + hourE + ":" + minutesE;
+        Spinner status = findViewById(R.id.spinnerStatus);
+        String statusTask = status.getSelectedItem().toString();
         SharedPreferences mPrefs = getSharedPreferences("AuthActivity", MODE_PRIVATE);
         String token = mPrefs.getString("access_token", "None");
-        String response = Tasks.taskNew(token, nameTask, sTime, eTime, descTask);
+        String response = Tasks.taskNew(token, nameTask, sTime, eTime, descTask, statusTask, LocalDateTime.now().toString());
         if (response.equals("Success")) {
             Intent intent = new Intent(TaskCreatingActivity.this,
                     MainPageActivity.class);

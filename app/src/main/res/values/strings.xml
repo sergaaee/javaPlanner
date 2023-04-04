@@ -23,7 +23,7 @@
     <string name="title_log_out">Logging out</string>
     <string name="exit_confirmation">Do you really want to exit?\nAfter that you\'ll be have to login again.</string>
     <string name="new_parameters">Enter new parameters:</string>
-    <string name="confirm">confirm</string>
+    <string name="confirm">Confirm</string>
     <string name="delete_task">Delete task</string>
     <string name="delete_confirmation">Are you sure?\nThat action can\'t be undone.</string>
     <string name="name_already_exists">Task with this name already exists!</string>
@@ -41,4 +41,11 @@
     <string name="password_rnt_match">Passwords aren\'t match</string>
     <string name="already_registered">Error: that username or e-mail already registered!</string>
     <string name="success_reg">Successfully registered!</string>
+    <string name="status">Status:</string>
+    <string-array name="taskStatuses">
+        <item>-</item>
+        <item>To do</item>
+        <item>In progress</item>
+        <item>Completed</item>
+    </string-array>
 </resources>

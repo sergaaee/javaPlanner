@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.planner.api.ApiUsage;
 import com.example.planner.R;
+import com.example.planner.api.ApiUsage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +70,7 @@ public class AllTasksActivity extends AppCompatActivity {
                             intent.putExtra("stime", task[1]);
                             intent.putExtra("etime", task[2]);
                             intent.putExtra("desc", task[3]);
+                            intent.putExtra("status", task[4]);
                             startActivity(intent);
 
                         });
@@ -100,10 +101,16 @@ public class AllTasksActivity extends AppCompatActivity {
                         format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
                         task.getString("end_time").split("T")[1].split("\\.")[0];
                 String taskDesc = task.getString("description");
-                result[i] = new String[]{taskName, taskSTime, taskEtime, taskDesc};
+                String taskStatus = task.getString("status");
+                result[i] = new String[]{taskName, taskSTime, taskEtime, taskDesc, taskStatus};
                 SharedPreferences sharedPref = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
-                sharedPref.edit().putString("name", taskName).apply();
-                sharedPref.edit().putString("time", task.getString("start_time")).apply();
+                sharedPref.edit()
+                        .putString("name", taskName)
+                        .putString("sTime", task.getString("start_time"))
+                        .putString("eTime", task.getString("end_time"))
+                        .putString("desc", taskDesc)
+                        .putString("status", taskStatus)
+                        .apply();
             }
         }
         else {

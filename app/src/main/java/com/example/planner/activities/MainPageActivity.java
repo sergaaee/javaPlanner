@@ -42,6 +42,12 @@ public class MainPageActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_page);
         String token = getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null");
+        createSoonestTask(token);
+
+    }
+
+
+    public void createSoonestTask(String token){
         try {
             String Response = ApiUsage.getMethod("users",
                     token,
@@ -55,7 +61,6 @@ public class MainPageActivity extends AppCompatActivity {
         } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
@@ -85,15 +90,22 @@ public class MainPageActivity extends AppCompatActivity {
                     format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
                     soonestTask.getString("end_time").split("T")[1].split("\\.")[0];
             String taskDesc = soonestTask.getString("description");
+            String taskStatus = soonestTask.getString("status");
             soonestTaskField.setText(getString(R.string.soonest_task) + "\n\n" +
                     getString(R.string.task_name) + " " + taskName + "\n" +
                     getString(R.string.start_time) + " " + taskSTime + "\n" +
                     getString(R.string.end_time) + " " + taskEtime + "\n" +
-                    getString(R.string.task_desc) + " " + taskDesc
+                    getString(R.string.task_desc) + " " + taskDesc + "\n" +
+                    getString(R.string.status) + " " + taskStatus
                     );
             SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-            sharedPref.edit().putString("name", taskName).apply();
-            sharedPref.edit().putString("time", soonestTask.getString("start_time")).apply();
+            sharedPref.edit()
+                    .putString("name", taskName)
+                    .putString("sTime", soonestTask.getString("start_time"))
+                    .putString("eTime", soonestTask.getString("end_time"))
+                    .putString("desc", taskDesc)
+                    .putString("status", taskStatus)
+                    .apply();
         }
     }
 

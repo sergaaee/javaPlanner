@@ -56,6 +56,9 @@ public class AuthActivity extends AppCompatActivity {
                             MainPageActivity.class);
                     startActivity(intent);
                 }
+                else{
+                    setContentView(R.layout.activity_auth);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -64,7 +67,6 @@ public class AuthActivity extends AppCompatActivity {
         startForegroundService(new Intent(this, SoonestTaskService.class));
 
     }
-
 
 
 
