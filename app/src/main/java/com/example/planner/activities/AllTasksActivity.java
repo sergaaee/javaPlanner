@@ -38,7 +38,7 @@ public class AllTasksActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void viewBuilding(){
-        LinearLayout layout = findViewById(R.id.linearLayoutTasks);
+        LinearLayout layout = findViewById(R.id.linearLayoutTasksCategories);
         try {
             String Response = ApiUsage.getMethod("tasks",
                     getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"),
@@ -56,25 +56,100 @@ public class AllTasksActivity extends AppCompatActivity {
                         taskETime.setText(getString(R.string.end_time) + " " + task[2]);
                         TextView taskDesc = new TextView(this);
                         taskDesc.setText(getString(R.string.task_desc) + " " + task[3]);
-                        LinearLayout layout1 = new LinearLayout(this);
-                        layout1.setOrientation(LinearLayout.VERTICAL);
-                        layout1.addView(taskName);
-                        layout1.addView(taskSTime);
-                        layout1.addView(taskETime);
-                        layout1.addView(taskDesc);
-                        layout1.setOnClickListener(v -> {
-                            // need it for build next activity
-                            Intent intent = new Intent(AllTasksActivity.this,
-                                    EditTaskActivity.class);
-                            intent.putExtra("name", task[0]);
-                            intent.putExtra("stime", task[1]);
-                            intent.putExtra("etime", task[2]);
-                            intent.putExtra("desc", task[3]);
-                            intent.putExtra("status", task[4]);
-                            startActivity(intent);
+                        LinearLayout layoutNoStatus = new LinearLayout(this);
+                        layoutNoStatus.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout layoutToDo = new LinearLayout(this);
+                        layoutToDo.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout layoutInProgress = new LinearLayout(this);
+                        layoutInProgress.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout layoutCompleted = new LinearLayout(this);
+                        layoutCompleted.setOrientation(LinearLayout.VERTICAL);
+                        switch (task[4]){
+                            case "-":
+                                layoutNoStatus.addView(taskName);
+                                layoutNoStatus.addView(taskSTime);
+                                layoutNoStatus.addView(taskETime);
+                                layoutNoStatus.addView(taskDesc);
+                                layoutNoStatus.setOnClickListener(v -> {
+                                    // need it for build next activity
+                                    Intent intent = new Intent(AllTasksActivity.this,
+                                            EditTaskActivity.class);
+                                    intent.putExtra("name", task[0]);
+                                    intent.putExtra("stime", task[1]);
+                                    intent.putExtra("etime", task[2]);
+                                    intent.putExtra("desc", task[3]);
+                                    startActivity(intent);
 
-                        });
-                        layout.addView(layout1);
+                                });
+                                break;
+                            case "To do":
+                                layoutToDo.setBackgroundColor(getColor(R.color.teal_700));
+                                TextView toDo = new TextView(this);
+                                toDo.setText(getResources().getStringArray(R.array.taskStatuses)[1]);
+                                layoutToDo.addView(toDo);
+                                layoutToDo.addView(taskName);
+                                layoutToDo.addView(taskSTime);
+                                layoutToDo.addView(taskETime);
+                                layoutToDo.addView(taskDesc);
+                                layoutToDo.setOnClickListener(v -> {
+                                    // need it for build next activity
+                                    Intent intent = new Intent(AllTasksActivity.this,
+                                            EditTaskActivity.class);
+                                    intent.putExtra("name", task[0]);
+                                    intent.putExtra("stime", task[1]);
+                                    intent.putExtra("etime", task[2]);
+                                    intent.putExtra("desc", task[3]);
+                                    startActivity(intent);
+
+                                });
+                                break;
+                            case "In progress":
+                                layoutInProgress.setBackgroundColor(getColor(R.color.in_progress));
+                                TextView prog = new TextView(this);
+                                prog.setText(getResources().getStringArray(R.array.taskStatuses)[2]);
+                                layoutInProgress.addView(prog);
+                                layoutInProgress.addView(taskName);
+                                layoutInProgress.addView(taskSTime);
+                                layoutInProgress.addView(taskETime);
+                                layoutInProgress.addView(taskDesc);
+                                layoutInProgress.setOnClickListener(v -> {
+                                    // need it for build next activity
+                                    Intent intent = new Intent(AllTasksActivity.this,
+                                            EditTaskActivity.class);
+                                    intent.putExtra("name", task[0]);
+                                    intent.putExtra("stime", task[1]);
+                                    intent.putExtra("etime", task[2]);
+                                    intent.putExtra("desc", task[3]);
+                                    startActivity(intent);
+
+                                });
+                                break;
+                            case "Completed":
+                                layoutCompleted.setBackgroundColor(getColor(R.color.completed));
+                                TextView comp = new TextView(this);
+                                comp.setText(getResources().getStringArray(R.array.taskStatuses)[3]);
+                                layoutCompleted.addView(comp);
+                                layoutCompleted.addView(taskName);
+                                layoutCompleted.addView(taskSTime);
+                                layoutCompleted.addView(taskETime);
+                                layoutCompleted.addView(taskDesc);
+                                layoutCompleted.setOnClickListener(v -> {
+                                    // need it for build next activity
+                                    Intent intent = new Intent(AllTasksActivity.this,
+                                            EditTaskActivity.class);
+                                    intent.putExtra("name", task[0]);
+                                    intent.putExtra("stime", task[1]);
+                                    intent.putExtra("etime", task[2]);
+                                    intent.putExtra("desc", task[3]);
+                                    startActivity(intent);
+
+                                });
+                                break;
+                        }
+                        layout.addView(layoutNoStatus);
+                        layout.addView(layoutToDo);
+                        layout.addView(layoutInProgress);
+                        layout.addView(layoutCompleted);
                         layout.addView(new TextView(this));
                     }
 

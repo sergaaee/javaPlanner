@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.view.View;
 
+import com.example.planner.R;
 import com.example.planner.api.ApiUsage;
 import com.example.planner.api.Tasks;
 import com.example.planner.receivers.NotificationTaskTime;
@@ -34,7 +35,9 @@ public class SoonestTaskService extends Service {
         SharedPreferences preferences = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
         createNotificationChannel();
         String time = LocalDateTime.now().toString().split("\\.")[0];
-        if (time.equals(preferences.getString("sTime", "null"))){
+        String statusCheck = getResources().getStringArray(R.array.taskStatuses)[1];
+        String statusTask = preferences.getString("status", "null");
+        if (time.equals(preferences.getString("sTime", "null")) && statusTask.equals(statusCheck)){
             createNotification(view);
             updateSoonestTask();
             SystemClock.sleep(960);

@@ -14,13 +14,13 @@
         android:layout_marginStart="4dp"
         android:onClick="backToMainPageFromTasks"
         android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAllTasks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="VisualLintBounds" />
 
     <ScrollView
-        android:id="@+id/scrollViewAllTasks"
+        android:id="@+id/scrollViewAllTasksCategories"
         android:layout_width="386dp"
         android:layout_height="659dp"
         android:layout_marginStart="1dp"
@@ -33,16 +33,14 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayoutTasks"
+            android:id="@+id/linearLayoutTasksCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
+            android:orientation="vertical"/>
     </ScrollView>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewAllTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="136dp"
