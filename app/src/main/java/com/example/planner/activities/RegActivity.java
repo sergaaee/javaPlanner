@@ -6,6 +6,7 @@ import static android.widget.Toast.makeText;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,16 +37,21 @@ public class RegActivity extends AppCompatActivity {
         String password = passwordReg.getText().toString();
         EditText emailReg = findViewById(R.id.regEmail);
         String email = emailReg.getText().toString();
-        EditText passwordField2 = findViewById(R.id.regPass2);
-        String password2 = passwordField2.getText().toString();
-        if (login.length() == 0){
-            makeText(RegActivity.this, getString(R.string.invalid_username), LENGTH_LONG).show();
+        EditText passwordReg2 = findViewById(R.id.regPass2);
+        String password2 = passwordReg2.getText().toString();
+        System.out.println(login.matches("^[A-Za-z\\d_.]+$"));
+        if (login.length() <= 4 || !login.matches("^[A-Za-z\\d_.]+$") ){
+            loginReg.setError(getString(R.string.a_z_1_9_username));
         }
-        else if (password.length() == 0) {
-            makeText(RegActivity.this, getString(R.string.invalid_password), LENGTH_LONG).show();
+        else if (password.length() < 8 || !password.matches("^[A-Za-z\\d_.]+$")) {
+            passwordReg.setError(getString(R.string.a_z_1_9_password));
         }
         else if (!password.equals(password2)) {
-            makeText(RegActivity.this, getString(R.string.password_rnt_match), LENGTH_LONG).show();
+            passwordReg.setError(getString(R.string.password_rnt_match));
+            passwordReg2.setError(getString(R.string.password_rnt_match));
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailReg.setError(getString(R.string.invalid_email));
         }
         else {
             String response =  new User(login, password, email).postNewUser();
@@ -53,7 +59,7 @@ public class RegActivity extends AppCompatActivity {
                 makeText(RegActivity.this, getString(R.string.already_registered), LENGTH_LONG).show();
             else {
                 makeText(RegActivity.this, getString(R.string.success_reg), LENGTH_LONG).show();
-                setContentView(R.layout.activity_auth);
+                startActivity(new Intent(RegActivity.this, AuthActivity.class));
             }
         }
 
@@ -61,8 +67,6 @@ public class RegActivity extends AppCompatActivity {
 
 
     public void backToLogIn(View view) {
-        Intent intent = new Intent(RegActivity.this,
-                AuthActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(RegActivity.this, AuthActivity.class));
     }
 }

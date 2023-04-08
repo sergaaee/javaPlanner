@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,11 +26,14 @@ import com.example.planner.R;
 import com.example.planner.api.Tasks;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
 
 public class TaskCreatingActivity extends AppCompatActivity {
 
-    private int year, month, day, hour, minutes, yearE, monthE, dayE, hourE, minutesE;
+    private int year, month, day, yearE, monthE, dayE;
+    private String hour, minutes, hourE, minutesE;
     private String dateTime = "";
     private String dateTimeE = "";
 
@@ -102,8 +104,22 @@ public class TaskCreatingActivity extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view1, year, monthOfYear, dayOfMonth) -> {
-
-                    dateTime = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                    if (monthOfYear + 1 < 10){
+                        if (dayOfMonth < 10){
+                            dateTime = year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth;
+                        }
+                        else{
+                            dateTime = year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }
+                    }
+                    else {
+                        if (dayOfMonth < 10){
+                            dateTime = year + "-" + (monthOfYear + 1) + "-0" + dayOfMonth;
+                        }
+                        else {
+                            dateTime = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }
+                    }
                     //*************Call Time Picker Here ********************
                     timePicker();
                 }, year, month, day);
@@ -113,18 +129,27 @@ public class TaskCreatingActivity extends AppCompatActivity {
     private void timePicker(){
         // Get Current Time
         final Calendar c = Calendar.getInstance();
-        hour = c.get(Calendar.HOUR_OF_DAY);
-        minutes = c.get(Calendar.MINUTE);
+        hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
+        minutes = String.valueOf(c.get(Calendar.MINUTE));
 
         // Launch Time Picker Dialog
         @SuppressLint("SetTextI18n") TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
-
-                    hour = hourOfDay;
-                    minutes = minute;
+                    if (hourOfDay < 10){
+                        hour = "0" + hourOfDay;
+                    }
+                    else {
+                        hour = String.valueOf(hourOfDay);
+                    }
+                    if (minute < 10){
+                        minutes = "0" + minute;
+                    }
+                    else {
+                        minutes = String.valueOf(minute);
+                    }
                     EditText sTimeField = findViewById(R.id.editTextTaskSTime);
                     sTimeField.setText(dateTime + " " + hour + ":" + minutes);
-                }, hour, minutes, false);
+                }, Integer.parseInt(hour), Integer.parseInt(minutes), false);
         timePickerDialog.show();
     }
 
@@ -137,7 +162,22 @@ public class TaskCreatingActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view1, year, monthOfYear, dayOfMonth) -> {
 
-                    dateTimeE = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                    if (monthOfYear + 1 < 10){
+                        if (dayOfMonth < 10){
+                            dateTimeE = year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth;
+                        }
+                        else{
+                            dateTimeE = year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }
+                    }
+                    else {
+                        if (dayOfMonth < 10){
+                            dateTimeE = year + "-" + (monthOfYear + 1) + "-0" + dayOfMonth;
+                        }
+                        else {
+                            dateTimeE = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }
+                    }
                     //************* Call Time Picker Here ********************
                     timePickerE();
                 }, yearE, monthE, dayE);
@@ -147,44 +187,63 @@ public class TaskCreatingActivity extends AppCompatActivity {
     private void timePickerE(){
         // Get Current Time
         final Calendar c = Calendar.getInstance();
-        hourE = c.get(Calendar.HOUR_OF_DAY);
-        minutesE = c.get(Calendar.MINUTE);
+        hourE = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
+        minutesE = String.valueOf(c.get(Calendar.MINUTE));
 
         // Launch Time Picker Dialog
         @SuppressLint("SetTextI18n") TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
 
-                    hourE = hourOfDay;
-                    minutesE = minute;
+                    if (hourOfDay < 10){
+                        hourE = "0" + hourOfDay;
+                    }
+                    else {
+                        hourE = String.valueOf(hourOfDay);
+                    }
+                    if (minute < 10){
+                        minutesE = "0" + minute;
+                    }
+                    else {
+                        minutesE = String.valueOf(minute);
+                    }
                     EditText eTimeField = findViewById(R.id.editTextTaskETime);
-                    eTimeField.setText(dateTimeE + " " + hourE + ":" + minutesE);
-                }, hourE, minutesE, true);
+                    eTimeField.setText(dateTime + " " + hourE + ":" + minutesE);
+                }, Integer.parseInt(hourE), Integer.parseInt(minutesE), false);
         timePickerDialog.show();
     }
 
     public void createTask(View view) {
-
+        EditText sTimeField = findViewById(R.id.editTextTaskSTime);
+        EditText eTimeField = findViewById(R.id.editTextTaskETime);
         EditText name = findViewById(R.id.editTextTaskName);
         String nameTask = name.getText().toString();
         EditText desc = findViewById(R.id.editTextTaskDesc);
         String descTask = desc.getText().toString();
-        String sTime = dateTime + "T" + hour + ":" + minutes;
-        String eTime = dateTimeE + "T" + hourE + ":" + minutesE;
-        Spinner status = findViewById(R.id.spinnerStatus);
-        String statusTask = status.getSelectedItem().toString();
-        SharedPreferences mPrefs = getSharedPreferences("AuthActivity", MODE_PRIVATE);
-        String token = mPrefs.getString("access_token", "None");
-        String response = Tasks.taskNew(token, nameTask, sTime, eTime, descTask, statusTask, LocalDateTime.now().toString());
-        if (response.equals("Success")) {
-            Intent intent = new Intent(TaskCreatingActivity.this,
-                    MainPageActivity.class);
-            startActivity(intent);
-            Toast successToast = Toast.makeText(TaskCreatingActivity.this, getString(R.string.successfully_added), Toast.LENGTH_LONG);
-            successToast.show();
-        }
-        else {
-            Toast errorToast = Toast.makeText(TaskCreatingActivity.this, getString(R.string.name_already_exists), Toast.LENGTH_LONG);
-            errorToast.show();
+        DateTimeFormatter df = new DateTimeFormatterBuilder().appendPattern("uuuu-MM-dd HH:mm").toFormatter();
+        if (dateTime.length() < 2 || LocalDateTime.parse(dateTime + " " + hour + ":" + minutes, df).isBefore(LocalDateTime.now())) {
+            sTimeField.setError("Incorrect time (may be outdated)");
+        } else if (dateTimeE.length() < 2 || LocalDateTime.parse(dateTimeE + " " + hourE + ":" + minutesE, df).isBefore(LocalDateTime.now())) {
+            eTimeField.setError("Incorrect time (may be outdated)");
+        } else if (LocalDateTime.parse(dateTime + " " + hour + ":" + minutes, df).isAfter(LocalDateTime.parse(dateTimeE + " " + hourE + ":" + minutesE, df))) {
+            sTimeField.setError("Incorrect time (may be outdated)");
+            eTimeField.setError("Incorrect time (may be outdated)");
+        } else {
+            String sTime = dateTime + "T" + hour + ":" + minutes;
+            String eTime = dateTimeE + "T" + hourE + ":" + minutesE;
+            Spinner status = findViewById(R.id.spinnerStatus);
+            String statusTask = status.getSelectedItem().toString();
+            String token = getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null");
+            String response = Tasks.taskNew(token, nameTask, sTime, eTime, descTask, statusTask, LocalDateTime.now().toString());
+            if (response.equals("Success")) {
+                Intent intent = new Intent(TaskCreatingActivity.this,
+                        MainPageActivity.class);
+                startActivity(intent);
+                Toast successToast = Toast.makeText(TaskCreatingActivity.this, getString(R.string.successfully_added), Toast.LENGTH_LONG);
+                successToast.show();
+            } else {
+                Toast errorToast = Toast.makeText(TaskCreatingActivity.this, getString(R.string.name_already_exists), Toast.LENGTH_LONG);
+                errorToast.show();
+            }
         }
     }
 }

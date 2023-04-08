@@ -57,7 +57,7 @@
         </activity>
 
         <receiver
-            android:name=".receivers.NotificationTaskTime"
+            android:name=".receivers.NotificationTaskReceiver"
             android:allowBackup="true"
             android:directBootAware="true"
             android:enabled="true"

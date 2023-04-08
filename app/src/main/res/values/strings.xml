@@ -42,10 +42,15 @@
     <string name="already_registered">Error: that username or e-mail already registered!</string>
     <string name="success_reg">Successfully registered!</string>
     <string name="status">Status:</string>
+
     <string-array name="taskStatuses">
         <item>-</item>
         <item>To do</item>
         <item>In progress</item>
         <item>Completed</item>
     </string-array>
+    <string name="a_z_1_9_username">Can be only English, 0–9 symbols and longer than 4 symbols</string>
+    <string name="a_z_1_9_password">Can be only English, 0–9 symbols and longer than 8 symbols</string>
+    <string name="invalid_email">Invalid e-mail</string>
+    <string name="out_time">That date is outdated. Are you sure you want to continue?</string>
 </resources>

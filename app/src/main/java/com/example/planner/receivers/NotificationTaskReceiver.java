@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.planner.R;
 import com.example.planner.activities.AuthActivity;
 
-public class NotificationTaskTime extends BroadcastReceiver {
+public class NotificationTaskReceiver extends BroadcastReceiver {
 
     private String name = "";
     private int counter = 1;

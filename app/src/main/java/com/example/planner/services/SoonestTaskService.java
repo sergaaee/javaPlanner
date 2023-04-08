@@ -12,7 +12,7 @@ import android.view.View;
 import com.example.planner.R;
 import com.example.planner.api.ApiUsage;
 import com.example.planner.api.Tasks;
-import com.example.planner.receivers.NotificationTaskTime;
+import com.example.planner.receivers.NotificationTaskReceiver;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,7 +108,7 @@ public class SoonestTaskService extends Service {
     public void createNotification(View view) {
 
         SharedPreferences preferences = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
-        Intent i = new Intent(this, NotificationTaskTime.class);
+        Intent i = new Intent(this, NotificationTaskReceiver.class);
         i.putExtra("name", preferences.getString("name", "null"));
         sendBroadcast(i);
 
