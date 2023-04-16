@@ -39,7 +39,6 @@ public class RegActivity extends AppCompatActivity {
         String email = emailReg.getText().toString();
         EditText passwordReg2 = findViewById(R.id.regPass2);
         String password2 = passwordReg2.getText().toString();
-        System.out.println(login.matches("^[A-Za-z\\d_.]+$"));
         if (login.length() <= 4 || !login.matches("^[A-Za-z\\d_.]+$") ){
             loginReg.setError(getString(R.string.a_z_1_9_username));
         }

@@ -42,7 +42,6 @@
     <string name="already_registered">Error: that username or e-mail already registered!</string>
     <string name="success_reg">Successfully registered!</string>
     <string name="status">Status:</string>
-
     <string-array name="taskStatuses">
         <item>-</item>
         <item>To do</item>
@@ -53,4 +52,16 @@
     <string name="a_z_1_9_password">Can be only English, 0–9 symbols and longer than 8 symbols</string>
     <string name="invalid_email">Invalid e-mail</string>
     <string name="out_time">That date is outdated. Are you sure you want to continue?</string>
+    <string name="friend_list">Friends</string>
+    <string name="add_friend">Send request</string>
+    <string name="to_add_new_friend_page">Add friend</string>
+    <string name="friend_id">Friend id:</string>
+    <string name="friend_not_found">Friend with this id not found</string>
+    <string name="not_correct_friend_id">Not correct id, has to be a number</string>
+    <string name="success">Success</string>
+    <string name="friend_already_exists">Friend already in your friend list or\nyou already sent a request</string>
+    <string name="confirmed_friends">Confirmed</string>
+    <string name="pending_to_user">Requests to you</string>
+    <string name="pending_from_user">Requests from you</string>
+    <string name="sure_delete_friend">Are you sure you want to delete this friend?</string>
 </resources>

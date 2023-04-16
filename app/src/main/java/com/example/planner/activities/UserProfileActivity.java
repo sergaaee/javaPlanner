@@ -45,6 +45,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
+    public void addFriend(View view){
+        Intent intent = new Intent(UserProfileActivity.this,
+                FriendActivity.class);
+        startActivity(intent);
+    }
+
     public void backToMainPageFromProfile(View view){
 
         Intent intent = new Intent(UserProfileActivity.this,

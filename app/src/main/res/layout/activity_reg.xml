@@ -11,21 +11,23 @@
         android:id="@+id/regLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="144dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/regPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -34,8 +36,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regLogin"
-        tools:ignore="DuplicateSpeakableTextCheck"
-        android:autofillHints="" />
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/regEmail"
@@ -43,23 +44,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="20dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/regPass"
-        app:layout_constraintTop_toBottomOf="@+id/regPass2"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/regPass2" />
 
     <TextView
         android:id="@+id/textViewReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="96dp"
         android:text="@string/reg_form"
         android:textColor="#0277BD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,10 +68,11 @@
         android:id="@+id/regButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="36dp"
         android:onClick="signUp"
         android:text="@string/button_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regEmail" />
 
@@ -78,8 +80,8 @@
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="28dp"
         android:onClick="backToLogIn"
         android:text="@string/back"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:autoText="false"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -99,6 +102,5 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regPass"
-        android:autofillHints=""
         tools:ignore="Deprecated" />
 </androidx.constraintlayout.widget.ConstraintLayout>

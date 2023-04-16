@@ -22,15 +22,13 @@
         android:id="@+id/buttonSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="312dp"
+        android:layout_marginTop="32dp"
         android:onClick="signIn"
         android:text="@string/button_sign"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passField"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/passField" />
 
     <EditText
         android:id="@+id/loginField"
@@ -42,6 +40,7 @@
         android:importantForAutofill="no"
         android:inputType="textShortMessage|textNoSuggestions"
         android:minHeight="48dp"
+        android:textColorHint="#A1887F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

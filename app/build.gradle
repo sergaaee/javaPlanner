@@ -5,7 +5,7 @@ plugins {
 android {
     namespace 'com.example.planner'
     compileSdk 33
-    buildToolsVersion '34-rc1'
+    buildToolsVersion '33.0.2'
 
     defaultConfig {
         applicationId "com.example.planner"
@@ -33,6 +33,7 @@ dependencies {
     // define a BOM and its version
     implementation(platform('com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11'))
     // define any required OkHttp artifacts without version
+    //noinspection GradleDependency
     implementation "androidx.activity:activity:1.6.0-alpha02"
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")

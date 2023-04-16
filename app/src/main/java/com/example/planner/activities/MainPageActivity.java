@@ -162,4 +162,9 @@ public class MainPageActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.cancel, null).show();
     }
 
+    public void addFriendMenu(MenuItem item) {
+        Intent intent = new Intent(MainPageActivity.this,
+                FriendActivity.class);
+        startActivity(intent);
+    }
 }

@@ -172,12 +172,12 @@ public class AllTasksActivity extends AppCompatActivity {
                 String taskSTime  = LocalDate.parse(task.getString("start_time").split("T")[0]).
                         format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
                         task.getString("start_time").split("T")[1].split("\\.")[0];
-                String taskEtime = LocalDate.parse(task.getString("end_time").split("T")[0]).
+                String taskETime = LocalDate.parse(task.getString("end_time").split("T")[0]).
                         format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " " +
                         task.getString("end_time").split("T")[1].split("\\.")[0];
                 String taskDesc = task.getString("description");
                 String taskStatus = task.getString("status");
-                result[i] = new String[]{taskName, taskSTime, taskEtime, taskDesc, taskStatus};
+                result[i] = new String[]{taskName, taskSTime, taskETime, taskDesc, taskStatus};
                 SharedPreferences sharedPref = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
                 sharedPref.edit()
                         .putString("name", taskName)
