@@ -29,7 +29,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void viewBuilder(){
         Bundle extras = getIntent().getExtras();
-        int userId = extras.getInt("userId");
+        int userId = extras.getInt("id");
         TextView Id = findViewById(R.id.textViewId);
         Id.setText(String.format("%s %s", Id.getText().toString(), userId));
         String username = extras.getString("username");
@@ -47,7 +47,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void addFriend(View view){
         Intent intent = new Intent(UserProfileActivity.this,
-                FriendActivity.class);
+                AllFriendsActivity.class);
         startActivity(intent);
     }
 

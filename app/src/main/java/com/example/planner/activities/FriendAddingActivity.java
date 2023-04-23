@@ -48,6 +48,6 @@ public class FriendAddingActivity extends AppCompatActivity {
     }
 
     public void backToFriend(View view) {
-        startActivity(new Intent(FriendAddingActivity.this, FriendActivity.class));
+        startActivity(new Intent(FriendAddingActivity.this, AllFriendsActivity.class));
     }
 }

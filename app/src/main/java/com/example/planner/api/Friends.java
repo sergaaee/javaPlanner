@@ -6,6 +6,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+
 public class Friends extends ApiUsage{
 
     @NonNull
@@ -75,6 +76,23 @@ public class Friends extends ApiUsage{
             throw new RuntimeException(e);
         }
 
+    }
+
+
+    public static String getFriendsTasks(String token, String friendId){
+
+
+
+        String result = "";
+        try {
+             result = getMethod("friend/tasks",
+                    token,
+                    new String[]{"friend-id"},
+                    new String[]{friendId});
+        } catch (JSONException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
 }

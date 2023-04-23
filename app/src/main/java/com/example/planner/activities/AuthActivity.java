@@ -98,7 +98,6 @@ public class AuthActivity extends AppCompatActivity {
                 RegActivity.class);
         startActivity(intent);
 
-
     }
 
 
@@ -106,4 +105,3 @@ public class AuthActivity extends AppCompatActivity {
 
 
 }
-

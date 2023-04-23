@@ -22,10 +22,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".activities.FriendsTasksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FriendProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.FriendAddingActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.FriendActivity"
+            android:name=".activities.AllFriendsActivity"
             android:exported="false" />
 
         <service

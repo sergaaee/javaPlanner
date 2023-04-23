@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tooltipText="@string/all_tasks"
+    tools:context=".activities.FriendsTasksActivity">
+
+    <Button
+        android:id="@+id/buttonBackToMainPage"
+        android:layout_width="76dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:onClick="backToFriendProfile"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAllTasks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="VisualLintBounds" />
+
+    <ScrollView
+        android:id="@+id/scrollViewAllTasksCategories"
+        android:layout_width="386dp"
+        android:layout_height="659dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:contentDescription="@string/all_tasks"
+        android:tooltipText="@string/all_tasks"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTasksCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textViewAllTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/friends_tasks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

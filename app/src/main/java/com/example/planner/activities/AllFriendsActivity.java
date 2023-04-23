@@ -1,7 +1,5 @@
 package com.example.planner.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -12,7 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planner.R;
 import com.example.planner.api.Friends;
@@ -22,14 +21,14 @@ import org.json.JSONException;
 
 import java.time.LocalDateTime;
 
-public class FriendActivity extends AppCompatActivity {
+public class AllFriendsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_friend);
+        setContentView(R.layout.activity_all_friends);
         viewBuilding();
     }
 
@@ -59,10 +58,19 @@ public class FriendActivity extends AppCompatActivity {
                 layoutConfirmed.addView(confirmedFriends);
                 for (int i = 0; i < confirmedFriendsJson.length(); i++) {
                     TextView friendId = new TextView(this);
+                    LinearLayout layoutFriend = new LinearLayout(this);
+                    layoutFriend.setOrientation(LinearLayout.VERTICAL);
                     layoutConfirmed.addView(new TextView(this));
                     String friendIdStr = confirmedFriendsJson.getJSONObject(i).getString("friend_id");
                     friendId.setText(getResources().getString(R.string.friend_id) + " " + friendIdStr);
-                    layoutConfirmed.addView(friendId);
+                    layoutFriend.addView(friendId);
+                    layoutFriend.setOnClickListener(v -> {
+                        Intent intent = new Intent(AllFriendsActivity.this, FriendProfileActivity.class);
+                        intent.putExtra("status", "added");
+                        intent.putExtra("id", friendIdStr);
+                        startActivity(intent);
+                    });
+                    layoutConfirmed.addView(layoutFriend);
                 }
             }
             if (pendingToUserJson.getString(0).equals("empty")){
@@ -75,6 +83,8 @@ public class FriendActivity extends AppCompatActivity {
                 for (int i = 0; i < pendingToUserJson.length(); i++) {
                     TextView friendId = new TextView(this);
                     layoutPendingTo.addView(new TextView(this));
+                    LinearLayout layoutFriend = new LinearLayout(this);
+                    layoutFriend.setOrientation(LinearLayout.VERTICAL);
                     Button confirmFriend = new Button(this);
                     Button cancelFriend = new Button(this);
                     String friendIdStr = pendingToUserJson.getJSONObject(i).getString("user_id");
@@ -85,8 +95,8 @@ public class FriendActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
                                 Friends.confirmFriend(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), friendIdStr, LocalDateTime.now().toString());
-                                Intent intent = new Intent(FriendActivity.this,
-                                        FriendActivity.class);
+                                Intent intent = new Intent(AllFriendsActivity.this,
+                                        AllFriendsActivity.class);
                                 startActivity(intent);
                             })
                             .setNegativeButton(android.R.string.cancel, null).show());
@@ -97,15 +107,25 @@ public class FriendActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
                                 Friends.delFriend(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), friendIdStr);
-                                Intent intent = new Intent(FriendActivity.this,
-                                        FriendActivity.class);
+                                Intent intent = new Intent(AllFriendsActivity.this,
+                                        AllFriendsActivity.class);
                                 startActivity(intent);
                             })
                             .setNegativeButton(android.R.string.cancel, null).show());
                     friendId.setText(getResources().getString(R.string.id) + " " + friendIdStr);
-                    layoutPendingTo.addView(friendId);
-                    layoutPendingTo.addView(confirmFriend);
-                    layoutPendingTo.addView(cancelFriend);
+                    LinearLayout layoutButtons = new LinearLayout(this);
+                    layoutButtons.setOrientation(LinearLayout.VERTICAL);
+                    layoutButtons.addView(confirmFriend);
+                    layoutButtons.addView(cancelFriend);
+                    layoutFriend.addView(friendId);
+                    layoutFriend.setOnClickListener(v -> {
+                        Intent intent = new Intent(AllFriendsActivity.this, FriendProfileActivity.class);
+                        intent.putExtra("status", "requestTo");
+                        intent.putExtra("id", friendIdStr);
+                        startActivity(intent);
+                    });
+                    layoutPendingTo.addView(layoutFriend);
+                    layoutPendingTo.addView(layoutButtons);
                 }
             }
             if (pendingFromUserJson.getString(0).equals("empty")){
@@ -127,13 +147,22 @@ public class FriendActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
                                 Friends.delFriend(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), friendIdStr);
-                                Intent intent = new Intent(FriendActivity.this,
-                                        FriendActivity.class);
+                                Intent intent = new Intent(AllFriendsActivity.this,
+                                        AllFriendsActivity.class);
                                 startActivity(intent);
                             })
                             .setNegativeButton(android.R.string.cancel, null).show());
                     friendId.setText(getResources().getString(R.string.id) + " " + friendIdStr);
-                    layoutFrom.addView(friendId);
+                    LinearLayout layoutFriend = new LinearLayout(this);
+                    layoutFriend.setOrientation(LinearLayout.VERTICAL);
+                    layoutFriend.addView(friendId);
+                    layoutFriend.setOnClickListener(v -> {
+                        Intent intent = new Intent(AllFriendsActivity.this, FriendProfileActivity.class);
+                        intent.putExtra("status", "requestFrom");
+                        intent.putExtra("id", friendIdStr);
+                        startActivity(intent);
+                    });
+                    layoutFrom.addView(layoutFriend);
                     layoutFrom.addView(cancelRequest);
                 }
             }
@@ -172,10 +201,10 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     public void backToMainPageFromFriend(View view) {
-        startActivity(new Intent(FriendActivity.this, MainPageActivity.class));
+        startActivity(new Intent(AllFriendsActivity.this, MainPageActivity.class));
     }
 
     public void toFriendAdd(View view) {
-        startActivity(new Intent(FriendActivity.this, FriendAddingActivity.class));
+        startActivity(new Intent(AllFriendsActivity.this, FriendAddingActivity.class));
     }
 }

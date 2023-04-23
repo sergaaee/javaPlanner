@@ -164,7 +164,7 @@ public class MainPageActivity extends AppCompatActivity {
 
     public void addFriendMenu(MenuItem item) {
         Intent intent = new Intent(MainPageActivity.this,
-                FriendActivity.class);
+                AllFriendsActivity.class);
         startActivity(intent);
     }
 }
