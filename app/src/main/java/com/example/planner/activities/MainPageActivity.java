@@ -119,7 +119,7 @@ public class MainPageActivity extends AppCompatActivity {
         Intent intent = new Intent(MainPageActivity.this,
                 UserProfileActivity.class);
         intent.putExtra("username", username);
-        intent.putExtra("userId", userId);
+        intent.putExtra("id", userId);
         intent.putExtra("email", email);
         intent.putExtra("regDate", regDate);
         startActivity(intent);
@@ -141,7 +141,7 @@ public class MainPageActivity extends AppCompatActivity {
         Intent intent = new Intent(MainPageActivity.this,
                 UserProfileActivity.class);
         intent.putExtra("username", username);
-        intent.putExtra("userId", userId);
+        intent.putExtra("id", userId);
         intent.putExtra("email", email);
         intent.putExtra("regDate", regDate);
         startActivity(intent);

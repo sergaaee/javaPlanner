@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/buttonBackToMainPage"
-        android:layout_width="76dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="4dp"
         android:onClick="backToFriendProfile"
@@ -17,12 +17,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewAllTasks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.186"
         tools:ignore="VisualLintBounds" />
 
     <ScrollView
         android:id="@+id/scrollViewAllTasksCategories"
         android:layout_width="386dp"
-        android:layout_height="659dp"
+        android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
@@ -30,22 +31,36 @@
         android:tooltipText="@string/all_tasks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAskForNew">
 
         <LinearLayout
             android:id="@+id/linearLayoutTasksCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
     </ScrollView>
 
     <TextView
         android:id="@+id/textViewAllTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="72dp"
         android:text="@string/friends_tasks"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAskForNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="175dp"
+        android:text="@string/ask_for_add"
+        android:onClick="askForTask"
+        app:layout_constraintBottom_toTopOf="@+id/scrollViewAllTasksCategories"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

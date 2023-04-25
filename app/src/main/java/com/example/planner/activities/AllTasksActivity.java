@@ -56,6 +56,18 @@ public class AllTasksActivity extends AppCompatActivity {
                         taskETime.setText(getString(R.string.end_time) + " " + task[2]);
                         TextView taskDesc = new TextView(this);
                         taskDesc.setText(getString(R.string.task_desc) + " " + task[3]);
+                        TextView taskSharedFrom = new TextView(this);
+                        taskSharedFrom.setText(getString(R.string.created_by) + " you");
+                        if (!task[5].equals("0")){
+                            taskSharedFrom.setText(getString(R.string.created_by) + " " + getString(R.string.friend_id) + " " + task[5]);
+                        }
+                        TextView taskSharedTo = new TextView(this);
+                        taskSharedTo.setText(getString(R.string.shared_to) + " No one");
+                        if (!task[6].equals("0")){
+                            taskSharedTo.setText(getString(R.string.shared_to) + " " + getString(R.string.friend_id) + " " + task[6]);
+                        }
+                        LinearLayout layoutPending = new LinearLayout(this);
+                        layoutPending.setOrientation(LinearLayout.VERTICAL);
                         LinearLayout layoutNoStatus = new LinearLayout(this);
                         layoutNoStatus.setOrientation(LinearLayout.VERTICAL);
                         LinearLayout layoutToDo = new LinearLayout(this);
@@ -65,11 +77,36 @@ public class AllTasksActivity extends AppCompatActivity {
                         LinearLayout layoutCompleted = new LinearLayout(this);
                         layoutCompleted.setOrientation(LinearLayout.VERTICAL);
                         switch (task[4]){
+                            case "*":
+                                layoutPending.addView(taskName);
+                                layoutPending.addView(taskSTime);
+                                layoutPending.addView(taskETime);
+                                layoutPending.addView(taskDesc);
+                                layoutPending.addView(taskSharedFrom);
+                                layoutPending.addView(taskSharedTo);
+                                TextView pending = new TextView(this);
+                                pending.setText(getResources().getStringArray(R.array.taskStatuses)[4]);
+                                layoutPending.addView(pending);
+                                layoutPending.setBackgroundColor(getColor(R.color.light_blue_400));
+                                layoutPending.setOnClickListener(v -> {
+                                    // need it for build next activity
+                                    Intent intent = new Intent(AllTasksActivity.this,
+                                            EditTaskActivity.class);
+                                    intent.putExtra("name", task[0]);
+                                    intent.putExtra("stime", task[1]);
+                                    intent.putExtra("etime", task[2]);
+                                    intent.putExtra("desc", task[3]);
+                                    startActivity(intent);
+
+                                });
+                                break;
                             case "-":
                                 layoutNoStatus.addView(taskName);
                                 layoutNoStatus.addView(taskSTime);
                                 layoutNoStatus.addView(taskETime);
                                 layoutNoStatus.addView(taskDesc);
+                                layoutNoStatus.addView(taskSharedFrom);
+                                layoutNoStatus.addView(taskSharedTo);
                                 layoutNoStatus.setOnClickListener(v -> {
                                     // need it for build next activity
                                     Intent intent = new Intent(AllTasksActivity.this,
@@ -91,6 +128,8 @@ public class AllTasksActivity extends AppCompatActivity {
                                 layoutToDo.addView(taskSTime);
                                 layoutToDo.addView(taskETime);
                                 layoutToDo.addView(taskDesc);
+                                layoutToDo.addView(taskSharedFrom);
+                                layoutToDo.addView(taskSharedTo);
                                 layoutToDo.setOnClickListener(v -> {
                                     // need it for build next activity
                                     Intent intent = new Intent(AllTasksActivity.this,
@@ -112,6 +151,8 @@ public class AllTasksActivity extends AppCompatActivity {
                                 layoutInProgress.addView(taskSTime);
                                 layoutInProgress.addView(taskETime);
                                 layoutInProgress.addView(taskDesc);
+                                layoutInProgress.addView(taskSharedFrom);
+                                layoutInProgress.addView(taskSharedTo);
                                 layoutInProgress.setOnClickListener(v -> {
                                     // need it for build next activity
                                     Intent intent = new Intent(AllTasksActivity.this,
@@ -133,6 +174,8 @@ public class AllTasksActivity extends AppCompatActivity {
                                 layoutCompleted.addView(taskSTime);
                                 layoutCompleted.addView(taskETime);
                                 layoutCompleted.addView(taskDesc);
+                                layoutCompleted.addView(taskSharedFrom);
+                                layoutCompleted.addView(taskSharedTo);
                                 layoutCompleted.setOnClickListener(v -> {
                                     // need it for build next activity
                                     Intent intent = new Intent(AllTasksActivity.this,
@@ -150,6 +193,7 @@ public class AllTasksActivity extends AppCompatActivity {
                         layout.addView(layoutToDo);
                         layout.addView(layoutInProgress);
                         layout.addView(layoutCompleted);
+                        layout.addView(layoutPending);
                         layout.addView(new TextView(this));
                     }
 
@@ -177,7 +221,9 @@ public class AllTasksActivity extends AppCompatActivity {
                         task.getString("end_time").split("T")[1].split("\\.")[0];
                 String taskDesc = task.getString("description");
                 String taskStatus = task.getString("status");
-                result[i] = new String[]{taskName, taskSTime, taskETime, taskDesc, taskStatus};
+                String taskSharedFrom = task.getString("sharing_from");
+                String taskSharedTo = task.getString("sharing_to");
+                result[i] = new String[]{taskName, taskSTime, taskETime, taskDesc, taskStatus, taskSharedFrom, taskSharedTo};
                 SharedPreferences sharedPref = getSharedPreferences("activities.MainPageActivity", MODE_PRIVATE);
                 sharedPref.edit()
                         .putString("name", taskName)

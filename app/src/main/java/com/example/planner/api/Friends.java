@@ -95,4 +95,21 @@ public class Friends extends ApiUsage{
         return result;
     }
 
+    public static String addTaskToFriend(String token, String friendId, String name, String stime, String etime, String desc, String status, String createdAt){
+        String check;
+        try {
+            check = postMethod("friend/tasks",
+                    token,
+                    new String[]{"name", "start_time", "end_time", "description", "status", "created_at", "sharing_to"},
+                    new String[]{name, stime, etime, desc, status, createdAt, "0"},
+                    new String[]{"friend-id"},
+                    new String[]{friendId});
+            if (check.equals("401")){ return "401"; }
+            if (check.equals("409")){ return "409"; }
+        } catch (JSONException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "Success";
+    }
+
 }

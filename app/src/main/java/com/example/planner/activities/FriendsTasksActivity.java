@@ -157,4 +157,9 @@ public class FriendsTasksActivity extends AppCompatActivity {
         intent.putExtra("status", extras.getString("status"));
         startActivity(intent);
     }
+
+    public void askForTask(View view) {
+        Bundle extras = getIntent().getExtras();
+        startActivity(new Intent(FriendsTasksActivity.this, AskFriendForTaskActivity.class).putExtra("friend_id", extras.getString("id")));
+    }
 }

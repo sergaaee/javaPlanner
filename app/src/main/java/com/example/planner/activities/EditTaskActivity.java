@@ -266,6 +266,7 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     private void updateTaskApi(String newSTime, String newETime, String newName, String newStatus, String newDesc){
+        if (newStatus.equals("Pending")) newStatus = "*";
         try {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm:ss", Locale.US);
             newSTime = LocalDateTime.parse(newSTime, dateFormat).toString();

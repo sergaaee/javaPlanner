@@ -22,6 +22,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".activities.AskFriendForTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.FriendsTasksActivity"
             android:exported="false" />
         <activity

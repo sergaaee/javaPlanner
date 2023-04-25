@@ -91,7 +91,7 @@ public class AllFriendsActivity extends AppCompatActivity {
                     confirmFriend.setText(getString(R.string.confirm));
                     confirmFriend.setOnClickListener(v -> new AlertDialog.Builder(this)
                             .setTitle("")
-                            .setMessage(getString(R.string.sure_delete_friend))
+                            .setMessage(getString(R.string.sure_add_friend))
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
                                 Friends.confirmFriend(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"), friendIdStr, LocalDateTime.now().toString());

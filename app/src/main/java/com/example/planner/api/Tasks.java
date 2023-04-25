@@ -9,14 +9,14 @@ import java.io.IOException;
 public class Tasks extends ApiUsage {
 
     @NonNull
-    public static String taskNew(String token, String name, String stime, String etime, String desc, String status, String createdAt){
+    public static String taskNew(String token, String name, String stime, String etime, String desc, String status, String createdAt, String sharing_to){
 
         String check;
         try {
             check = postMethod("tasks",
                     token,
-                    new String[]{"name", "start_time", "end_time", "description", "status", "created_at"},
-                    new String[]{name, stime, etime, desc, status, createdAt},
+                    new String[]{"name", "start_time", "end_time", "description", "status", "created_at", "sharing_to", "sharing_from"},
+                    new String[]{name, stime, etime, desc, status, createdAt, sharing_to, "0"},
                     new String[]{""},
                     new String[]{""});
             if (check.equals("401")){ return "401"; }
