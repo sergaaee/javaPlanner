@@ -10,36 +10,41 @@
         android:id="@+id/editTextFriendId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="141dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/friend_id"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.13" />
 
     <Button
         android:id="@+id/buttonAddFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:text="@string/add_friend"
         android:onClick="addNewFriend"
+        android:text="@string/add_friend"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFriendId" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26" />
 
     <Button
         android:id="@+id/buttonBackToMainPageFromFriends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
         android:onClick="backToFriend"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextFriendId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.004" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

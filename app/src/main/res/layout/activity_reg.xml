@@ -11,96 +11,103 @@
         android:id="@+id/regLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <EditText
         android:id="@+id/regPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regLogin"
+        app:layout_constraintVertical_bias="0.050000012"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/regEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/regPass"
-        app:layout_constraintTop_toBottomOf="@+id/regPass2" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regPass2"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <TextView
         android:id="@+id/textViewReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
         android:text="@string/reg_form"
         android:textColor="#0277BD"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <Button
         android:id="@+id/regButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:onClick="signUp"
         android:text="@string/button_sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/regEmail"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <Button
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="28dp"
         android:onClick="backToLogIn"
         android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regButton" />
+        app:layout_constraintTop_toBottomOf="@+id/regButton"
+        app:layout_constraintVertical_bias="0.9" />
 
     <EditText
         android:id="@+id/regPass2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:autoText="false"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regPass"
+        app:layout_constraintVertical_bias="0.050000012"
         tools:ignore="Deprecated" />
 </androidx.constraintlayout.widget.ConstraintLayout>

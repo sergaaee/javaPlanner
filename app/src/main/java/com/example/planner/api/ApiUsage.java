@@ -16,7 +16,7 @@ import okhttp3.Response;
 
 public class ApiUsage {
     final static OkHttpClient client = new OkHttpClient();
-    final static String DEFAULT_URL = "http://10.0.2.2:8000/";
+    final static String DEFAULT_URL = "http://192.168.1.46:8000/";
 
     private static String methodBuilder(String path, String method, String token, @NonNull String[] bodyColumns, @NonNull String[] bodyData, @NonNull String[] headersColumns, @NonNull String[] headersData)
             throws JSONException, IOException, AssertionError {

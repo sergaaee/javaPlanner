@@ -22,57 +22,58 @@
         android:id="@+id/buttonSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:onClick="signIn"
         android:text="@string/button_sign"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passField" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004" />
 
     <EditText
         android:id="@+id/loginField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="226dp"
         android:ems="10"
         android:hint="@string/username"
         android:importantForAutofill="no"
         android:inputType="textShortMessage|textNoSuggestions"
         android:minHeight="48dp"
-        android:textColorHint="#A1887F"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <EditText
         android:id="@+id/passField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="@string/password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/loginField"
-        app:layout_constraintTop_toBottomOf="@+id/loginField"
-        android:importantForAutofill="no" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41000003" />
 
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
         android:onClick="signUpView"
         android:text="@string/button_sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

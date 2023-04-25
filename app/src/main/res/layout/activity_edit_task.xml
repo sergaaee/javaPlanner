@@ -10,114 +10,127 @@
         android:id="@+id/editTextNewTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/task_name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.17000002" />
 
     <EditText
         android:id="@+id/editTextNewTaskSTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:autofillHints=""
         android:ems="10"
+        android:focusable="false"
         android:hint="@string/start_time"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:onClick="setNewSTimeData"
-        android:focusable="false"
-        app:layout_constraintStart_toStartOf="@+id/editTextNewTaskName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskName" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998" />
 
     <EditText
         android:id="@+id/editTextNewTaskETime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:autofillHints=""
         android:ems="10"
+        android:focusable="false"
         android:hint="@string/end_time"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:focusable="false"
         android:onClick="setNewETimeData"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskSTime" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37" />
 
     <EditText
         android:id="@+id/editTextNewTaskDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/task_desc"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskETime" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47000003" />
 
     <TextView
         android:id="@+id/textViewNewParameter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/new_parameters"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <Button
         android:id="@+id/buttonConfirmEditTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
         android:onClick="updateTask"
         android:text="@string/confirm"
-        app:layout_constraintEnd_toEndOf="@+id/buttonDeleteTask"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerStatusEdit" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72" />
 
     <Button
         android:id="@+id/buttonBackToAllTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/back"
         android:onClick="backToAllTasks"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonDeleteTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:onClick="delTask"
         android:text="@string/delete_task"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonConfirmEditTask" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
     <Spinner
         android:id="@+id/spinnerStatusEdit"
-        android:layout_width="201dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:entries="@array/taskStatuses"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskDesc" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.57" />
 </androidx.constraintlayout.widget.ConstraintLayout>
