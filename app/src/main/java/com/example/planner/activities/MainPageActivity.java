@@ -16,14 +16,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.planner.api.ApiUsage;
 import com.example.planner.R;
+import com.example.planner.api.GetRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -49,16 +48,16 @@ public class MainPageActivity extends AppCompatActivity {
 
     public void createSoonestTask(String token){
         try {
-            String Response = ApiUsage.getMethod("users",
+            String Response = new GetRequest("users",
                     token,
                     new String[]{""},
-                    new String[]{""});
+                    new String[]{""}).execute();
             if (!Response.equals("401")) {
                 welcomeField = findViewById(R.id.textWelcomeBack);
                 soonestTaskField = findViewById(R.id.textSoonestTask);
                 parseJSONResponse(new JSONArray(Response));
             }
-        } catch (JSONException | IOException e) {
+        } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     }
@@ -72,7 +71,6 @@ public class MainPageActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void parseJSONResponse(@NonNull JSONArray response) throws JSONException {
-
         JSONObject userData = response.getJSONObject(0);
         username = userData.getString("username");
         email = userData.getString("email");

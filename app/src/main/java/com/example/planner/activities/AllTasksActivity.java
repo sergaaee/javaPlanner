@@ -14,13 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planner.R;
-import com.example.planner.api.ApiUsage;
+import com.example.planner.api.Tasks;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -40,10 +39,7 @@ public class AllTasksActivity extends AppCompatActivity {
     private void viewBuilding(){
         LinearLayout layout = findViewById(R.id.linearLayoutTasksCategories);
         try {
-            String Response = ApiUsage.getMethod("tasks",
-                    getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"),
-                    new String[]{""},
-                    new String[]{""});
+            String Response = Tasks.getAllTasks(getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"));
             if (!Response.equals("401")) {
                 String[][] tasks = parseJSONResponse(new JSONArray(Response));
                 if (!tasks[0][0].equals("No")){
@@ -199,7 +195,7 @@ public class AllTasksActivity extends AppCompatActivity {
 
                 }
             }
-        } catch (JSONException | IOException e) {
+        } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.planner.activities.AuthActivity;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class LogIn {
 
@@ -32,7 +33,12 @@ public class LogIn {
     @NonNull
     public static String updateAccessToken() throws IOException {
         SharedPreferences.Editor editor = AuthActivity.getSharedPref().edit();
-        String response = new Session().refreshAccessToken();
+        String response = null;
+        try {
+            response = new Session().refreshAccessToken();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if ("Error".equals(response)) {
             editor.putString("access_token", "null");
             editor.putString("refresh_token", "null");

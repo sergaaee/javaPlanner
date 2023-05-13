@@ -6,7 +6,11 @@ import androidx.annotation.Nullable;
 
 import com.example.planner.activities.AuthActivity;
 
-import java.io.IOException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import okhttp3.FormBody;
 import okhttp3.Request;
@@ -14,7 +18,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class Session extends ApiUsage{
+public class Session extends MethodBuilder{
 
     String username = "";
     String password = "";
@@ -40,18 +44,28 @@ public class Session extends ApiUsage{
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .post(formBody)
                 .build();
-        try (Response response = client.newCall(request).execute()) {
-            if (response.code() != 200){ return String.valueOf(response.code()); }
+
+        Callable<String> getSession = () ->
+        {
+            Response response = client.newCall(request).execute();
+            if (response.code() != 200)
+            {
+                return String.valueOf(response.code());
+            }
             return response.body() != null ? response.body().string() : null;
-        } catch (IOException e) {
+        };
+        ExecutorService service = Executors.newFixedThreadPool(2);
+        Future<String> response = service.submit(getSession);
+        try {
+            return response.get();
+        } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
     @Nullable
-    public String refreshAccessToken() throws IOException {
+    public String refreshAccessToken() throws ExecutionException, InterruptedException {
         if (refresh_token.equals("null")){
             return "Error";
         }
@@ -62,12 +76,25 @@ public class Session extends ApiUsage{
                 .addHeader("refresh-token", refresh_token)
                 .post(new FormBody.Builder().build())
                 .build();
-        Response response = client.newCall(request).execute();
-        if (response.code() != 200) {
-            if (response.code() == 401 || response.code() == 422) {
-                return "Error";
+        Callable<String> getSession = () ->
+        {
+            Response response = client.newCall(request).execute();
+            if (response.code() != 200) {
+                if (response.code() == 401 || response.code() == 422) {
+                    return "Error";
+                }
             }
-        }
-        return response.body().string();
+            return response.body().string();
+        };
+        ExecutorService service = Executors.newFixedThreadPool(2);
+        Future<String> response = service.submit(getSession);
+        return response.get();
+
+    }
+
+    @Override
+    protected String execute() {
+        // TODO normal working method
+        return null;
     }
 }

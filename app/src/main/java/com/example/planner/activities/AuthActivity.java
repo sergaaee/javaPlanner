@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
@@ -41,8 +40,6 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         String refreshToken = sharedPref.getString("refresh_token", "null");
         fingerprint = Settings.Secure.getString(context.getContentResolver(),
