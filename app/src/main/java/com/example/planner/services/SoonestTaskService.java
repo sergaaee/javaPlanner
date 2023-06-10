@@ -10,7 +10,7 @@ import android.os.SystemClock;
 import android.view.View;
 
 import com.example.planner.R;
-import com.example.planner.api.ApiUsage;
+import com.example.planner.api.GetRequest;
 import com.example.planner.api.Tasks;
 import com.example.planner.receivers.NotificationTaskReceiver;
 
@@ -18,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -56,10 +55,10 @@ public class SoonestTaskService extends Service {
         String responseUpdateTask = Tasks.taskUpdate(token, name, name, sTime, eTime, desc, "-");
         if (responseUpdateTask.equals("Success")) {
             try {
-                String Response = ApiUsage.getMethod("users",
+                String Response = new GetRequest("users",
                         getSharedPreferences("activities.AuthActivity", MODE_PRIVATE).getString("access_token", "null"),
                         new String[]{""},
-                        new String[]{""});
+                        new String[]{""}).execute();
                 if (!Response.equals("401")) {
 
                     JSONArray response = new JSONArray(Response);
@@ -85,7 +84,7 @@ public class SoonestTaskService extends Service {
                                 .apply();
                     }
                 }
-            } catch (JSONException | IOException e) {
+            } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }

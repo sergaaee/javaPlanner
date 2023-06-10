@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planner.R;
@@ -178,6 +179,7 @@ public class AllFriendsActivity extends AppCompatActivity {
 
     }
 
+    @NonNull
     private JSONArray parseJSONResponse(JSONArray response){
         JSONArray friend_list = new JSONArray();
         JSONArray empty = new JSONArray();

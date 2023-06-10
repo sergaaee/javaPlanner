@@ -8,7 +8,8 @@ import okhttp3.Request;
 public abstract class MethodBuilder {
 
     OkHttpClient client = OkHttpSingleton.getInstance().getClient();
-    final String DEFAULT_URL = "http://192.168.1.46:8000/";
+    final String DEFAULT_URL = "http://kamaliev.asuscomm.com/sergaee/";
+    //final String DEFAULT_URL = "http://172.20.10.3:8000/";
     Request.Builder builder = new Request.Builder();
     JSONObject jsonBody = new JSONObject();
 
